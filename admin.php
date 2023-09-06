@@ -19,7 +19,8 @@ if (empty($_SESSION['username']) && empty($_SESSION['level'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Simpas">
     <meta name="author" content="GreenNusa Computindo">
-
+    <link href='assets/img/unida_logo.png' rel='shortcut icon'>
+    
     <title>Simpas</title>
 
     <!-- Custom fonts for this template-->

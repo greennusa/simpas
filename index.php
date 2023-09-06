@@ -8,7 +8,7 @@
         include 'koneksi.php';
 
         $username = mysqli_real_escape_string($conn, $_POST['username']);
-        $password = mysqli_real_escape_string($conn, $_POST['password']); // Hashing perlu ditingkatkan
+        $password = mysqli_real_escape_string($conn, $_POST['password']); 
         $level = $_POST['level'];
 
         if($level == 'mahasiswa'){
@@ -18,8 +18,8 @@
             $stmt->execute();
             $result = $stmt->get_result();
         } else {
-            $stmt = $conn->prepare("SELECT * FROM user WHERE (username=? OR email=?) AND password=?");
-            $stmt->bind_param("sss", $username, $username, md5($password));
+            $stmt = $conn->prepare("SELECT * FROM user WHERE (username=? OR email=?) AND password=? AND level=?");
+            $stmt->bind_param("ssss", $username, $username, md5($password), $level);
             $stmt->execute();
             $result = $stmt->get_result();
         }
@@ -34,7 +34,7 @@
             $_SESSION['level'] = $level;
             echo "<script>window.location.href='admin.php?login=true';</script>";
         } else {
-            echo "<script>alert('Username atau Password Salah!');window.location='index.php';</script>";
+            echo "<script>var loginFailed = true;</script>";
         }
     }
 ?>
@@ -48,6 +48,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Simpas">
     <meta name="author" content="GreenNusa Computindo">
+    <link href='assets/img/unida_logo.png' rel='shortcut icon'>
 
     <title>Login - Simpas</title>
 
@@ -64,8 +65,9 @@
 
     <style>
         body{
-            background: url('assets/img/bg_login.png');
+            background: url('assets/img/bg_login.png') rgba(238, 238, 238, 0.52);
             background-size: cover;
+            background-blend-mode: multiply;
         }
 
         .blue{
@@ -85,10 +87,10 @@
 
         <!-- Outer Row -->
         <div class="row justify-content-center">
-            <div class="col-xl-7 col-lg-12 col-md-9">
+            <div class="col-xl-6 col-lg-8 col-md-9">
                 <div class="text-center pt-5">
                     <img src="assets/img/unida_logo.png" alt="Logo Unida" width="100px">
-                    <h1 class="blue"><strong>WELCOME SARPRAS</strong></h1>
+                    <h3 class="blue"><strong>WELCOME SARPRAS</strong></h3>
                     <h5 class="blue"><strong>UNIVERSITAS DARUSSALAM GONTOR KAMPUS PUTRI</strong></h6>
                 </div>
                 <div class="card o-hidden border-0 shadow-lg my-5">
@@ -98,7 +100,7 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Login</h1>
+                                        <h1 class="h4 mb-4 text-uppercase"><strong>Login</strong></h1>
                                         <hr>
                                     </div>
                                     <form class="user" method="POST">
@@ -123,7 +125,7 @@
                                     </form>
                                     <hr>
                                     <div class="text-center small">
-                                        Belum Mempunyai Akun? <a href="register.html">Registrasi Sekarang!</a>
+                                        Belum Mempunyai Akun? <a href="register.php">Registrasi Sekarang!</a>
                                     </div>
                                 </div>
                             </div>
@@ -146,6 +148,22 @@
 
     <!-- Custom scripts for all pages-->
     <script src="asset/js/sb-admin-2.min.js"></script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function(){
+            if (typeof loginFailed !== 'undefined' && loginFailed) {
+                Swal.fire(
+                    'Gagal!',
+                    'Username atau Password Salah!',
+                    'error'
+                ).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'index.php';
+                    }
+                });
+            }
+        });
+    </script>
+
 
 </body>
 
