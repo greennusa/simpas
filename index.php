@@ -11,7 +11,7 @@
         $password = mysqli_real_escape_string($conn, $_POST['password']); 
         $level = $_POST['level'];
 
-        if($level == 'mahasiswa'){
+        if($level == 'mahasiswi'){
             // var_dump($_POST);die;
             $stmt = $conn->prepare("SELECT * FROM mahasiswa WHERE nim=? AND password=?");
             $stmt->bind_param("ss", $username, md5($password));
@@ -118,7 +118,7 @@
                                                 <option value="">-- Pilih Level --</option>
                                                 <option value="super admin">Super Admin</option>
                                                 <option value="admin">Admin</option>
-                                                <option value="mahasiswa">Mahasiswa</option>
+                                                <option value="mahasiswi">Mahasiswi</option>
                                             </select>
                                         </div>
                                         <button type="submit" name="login" class="bg-blue btn btn-primary btn-block">Login</button>

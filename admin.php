@@ -58,6 +58,16 @@ if (empty($_SESSION['username']) && empty($_SESSION['level'])) {
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                    <!-- alert primary -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                        <?php if (isset($_SESSION['level'])) { ?>
+                            <div class="alert alert-info text-capitalize text-primary" role="alert">
+                                Selamat Datang <?php echo $_SESSION['level'] ?> di SIMPAS (Sistem Informasi Sarana Prasarana)
+                            </div>
+                        <?php } ?>
+                        </div>
+                    </div>
                     <?php
                         if (isset($_GET['page'])) {
                             $page = $_GET['page'];
@@ -215,12 +225,6 @@ if (empty($_SESSION['username']) && empty($_SESSION['level'])) {
     <!-- Custom scripts for all pages-->
     <script src="assets/js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="assets/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="assets/js/demo/chart-area-demo.js"></script>
-    <script src="assets/js/demo/chart-pie-demo.js"></script>
 
     <!-- Page level plugins -->
     <script src="assets/vendor/datatables/jquery.dataTables.min.js"></script>
