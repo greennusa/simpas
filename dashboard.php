@@ -21,7 +21,7 @@
     // Menghitung jumlah_barang yang dipinjam dari tabel peminjaman_barang dengan status Approved dan tanggal_selesai < tanggal hari ini
     $sql_count_borrowed_items = "SELECT SUM(jumlah_barang) as total_borrowed
     FROM peminjaman_barang
-    WHERE status = 'Approved' AND tanggal_selesai < CURDATE()";
+    WHERE status = 'Approved' AND tanggal_selesai > CURDATE()";
     $result_count_borrowed_items = $conn->query($sql_count_borrowed_items);
     $row_count_borrowed_items = $result_count_borrowed_items->fetch_assoc();
     $count_borrowed_items = $row_count_borrowed_items['total_borrowed'];

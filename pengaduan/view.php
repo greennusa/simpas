@@ -33,6 +33,12 @@
                     <th> : </th>
                     <td><?php echo $data['semester'] ?></td>
                 </tr>
+                <!-- kategori -->
+                <tr>
+                    <th>Kategori</th>
+                    <th> : </th>
+                    <td><?php echo $data['kategori'] ?></td>
+                </tr>
                 <tr>
                     <th>Judul</th>
                     <th> : </th>
@@ -43,11 +49,20 @@
                     <th> : </th>
                     <td><?php echo $data['isi'] ?></td>
                 </tr>
+                <!-- tampilkan gambar jika tidak null -->
+                <?php if($data['file'] != null) { ?>
+                <tr>
+                    <th>File</th>
+                    <th> : </th>
+                    <td><img src="pengaduan/uploads/<?php echo $data['file'] ?>" alt="Gambar" width="200px"></td>
+                </tr>
+                <?php } ?>
                 <tr>
                     <th>Tanggal</th>
                     <th> : </th>
                     <td><?php echo formatDateIndonesia($data['created_at']) ?></td>
                 </tr>
+
                 <tr>
                     <th>Status</th>
                     <th> : </th>

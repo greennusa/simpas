@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 10, 2023 at 11:39 AM
+-- Generation Time: Sep 10, 2023 at 05:04 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.18
 
@@ -120,7 +120,8 @@ CREATE TABLE `peminjaman_barang` (
 --
 
 INSERT INTO `peminjaman_barang` (`id_peminjaman_barang`, `mahasiswa_id`, `barang_kd`, `jumlah_barang`, `tujuan`, `tanggal_peminjaman`, `tanggal_selesai`, `status`, `pj`, `created_at`, `user_id`) VALUES
-(1, 3, 'BRG-0001', 2, 'acara', '2023-09-05', '2023-09-13', 'Approved', 'Pak Budi', '2023-09-10 09:36:36', 2);
+(1, 3, 'BRG-0001', 2, 'acara', '2023-09-05', '2023-09-13', 'Approved', 'Pak Budi', '2023-09-10 09:36:36', 2),
+(2, 3, 'BRG-0001', 2, '32', '2023-09-04', '2023-09-21', 'Pending', NULL, '2023-09-10 14:13:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -146,7 +147,8 @@ CREATE TABLE `peminjaman_ruangan` (
 --
 
 INSERT INTO `peminjaman_ruangan` (`id_peminjaman_ruangan`, `mahasiswa_id`, `ruangan_id`, `tujuan`, `tanggal_peminjaman`, `tanggal_selesai`, `status`, `pj`, `created_at`, `user_id`) VALUES
-(1, 3, 3, 'Acara', '2023-09-08', '2023-09-20', 'Approved', 'Pak Nanang', '2023-09-10 09:32:28', 2);
+(1, 3, 3, 'Acara', '2023-09-08', '2023-09-20', 'Approved', 'Pak Nanang', '2023-09-10 09:32:28', 2),
+(2, 3, 1, 'acara', '2023-09-02', '2023-09-15', 'Pending', NULL, '2023-09-10 14:06:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -159,6 +161,8 @@ CREATE TABLE `pengaduan` (
   `mahasiswa_id` int(11) NOT NULL,
   `judul` varchar(200) NOT NULL,
   `isi` text NOT NULL,
+  `kategori` varchar(100) NOT NULL,
+  `file` text DEFAULT NULL,
   `status` enum('Selesai','Pending') NOT NULL DEFAULT 'Pending',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `user_id` int(11) DEFAULT NULL
@@ -168,10 +172,9 @@ CREATE TABLE `pengaduan` (
 -- Dumping data for table `pengaduan`
 --
 
-INSERT INTO `pengaduan` (`id_pengaduan`, `mahasiswa_id`, `judul`, `isi`, `status`, `created_at`, `user_id`) VALUES
-(2, 3, 'judul', 'isi', 'Selesai', '2023-08-31 05:36:08', 2),
-(3, 3, 'sdfs', 'huihui', 'Selesai', '2023-08-31 06:23:15', 2),
-(4, 9, 'hehe', '123', 'Selesai', '2023-09-06 20:21:28', 3);
+INSERT INTO `pengaduan` (`id_pengaduan`, `mahasiswa_id`, `judul`, `isi`, `kategori`, `file`, `status`, `created_at`, `user_id`) VALUES
+(15, 3, 'sadfsa', 'sdafas', 'Kebersihan', 'empty_box.png', 'Selesai', '2023-09-10 15:02:45', 2),
+(16, 3, 'fasd', 'afsd', 'Kebersihan', '', 'Pending', '2023-09-10 15:02:54', NULL);
 
 -- --------------------------------------------------------
 
@@ -298,19 +301,19 @@ ALTER TABLE `mahasiswa`
 -- AUTO_INCREMENT for table `peminjaman_barang`
 --
 ALTER TABLE `peminjaman_barang`
-  MODIFY `id_peminjaman_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_peminjaman_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `peminjaman_ruangan`
 --
 ALTER TABLE `peminjaman_ruangan`
-  MODIFY `id_peminjaman_ruangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_peminjaman_ruangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  MODIFY `id_pengaduan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pengaduan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `ruangan`
