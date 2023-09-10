@@ -69,7 +69,7 @@
                 
             </table>
 
-            <?php if($data['status'] == "Pending" && $_SESSION['level'] != 'mahasiswa') { ?>
+            <?php if($data['status'] == "Pending" && $_SESSION['level'] != 'mahasiswi') { ?>
             <form action="" method="POST">
                 <button type="button" class="btn btn-primary" id="updateButton" name="update">Terima Laporan</button>
             </form>

@@ -80,13 +80,13 @@
                     <td> <?php echo $data['nama'] ?> </td>
                 </tr>
                 <?php } ?>
-                <?php if($_SESSION['level'] != 'mahasiswa') { ?>
+                <?php if($_SESSION['level'] != 'mahasiswi') { ?>
                     <?php if($data['status'] != 'Returned'){ ?>
+                <form action="" method="POST">
                 <tr>
                     <th>Ubah Status</th>
                     <th> : </th>
                     <td>
-                        <form action="" method="POST">
                             <select name="new_status" class="form-control">
                                 <option value="Approved" <?php if($data['status'] == "Approved") echo "selected"; ?>>Approved</option>
                                 <option value="Disapproved" <?php if($data['status'] == "Disapproved") echo "selected"; ?>>Disapproved</option>
@@ -94,11 +94,20 @@
                                     <option value="Returned" <?php if($data['status'] == "Returned") echo "selected"; ?>>Returned</option>
                                 <?php } ?>
                             </select>
-                            <button type="submit" class="btn btn-primary mt-4" id="updateButtonBarang" name="update_status">Ubah Status</button>
-                        </form>
                     </td>
                 </tr>
-                    <?php } ?>
+                <?php } ?>
+                <tr>
+                    <th>Penanggung Jawab</th>
+                    <th> : </th>
+                    <td>
+                        <!-- jika status returned input pj menjadi readonly -->
+                        <input type="text" name="pj" class="form-control" value="<?php echo $data['pj'] ?>" <?php if($data['status'] == "Returned") echo "readonly"; ?>>
+                        <button type="submit" class="btn btn-primary mt-4" id="updateButtonBarang" name="update_status">Ubah Status</button>
+                    </td>
+                </tr>
+                </form>
+
                 <?php } ?>
                 
             </table>
@@ -112,6 +121,7 @@ if(isset($_POST['update_status'])){
     $new_status = $_POST['new_status'];
     $previous_status = $data['status'];  // Menangkap status sebelumnya
     $id_user = $_SESSION['id'];
+    $pj = $_POST['pj'];
     $id_peminjaman_barang = $_GET['id'];
 
     $conn->begin_transaction();
@@ -155,7 +165,7 @@ if(isset($_POST['update_status'])){
             $conn->query($sql_update_stok);
         }
 
-        $sql = "UPDATE peminjaman_barang SET status='$new_status', user_id='$id_user' WHERE id_peminjaman_barang='$id_peminjaman_barang'";
+        $sql = "UPDATE peminjaman_barang SET status='$new_status', user_id='$id_user', pj='$pj' WHERE id_peminjaman_barang='$id_peminjaman_barang'";
         $conn->query($sql);
 
         $conn->commit();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2023 at 01:17 PM
+-- Generation Time: Sep 10, 2023 at 11:39 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.18
 
@@ -43,7 +43,7 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`kd_barang`, `nama_barang`, `kategori_id`, `merek`, `spesifikasi`, `lokasi`, `status_barang`, `total`) VALUES
-('BRG-0001', 'fsdfsd', 11, 'sfd', 'sdf', 'sdf', 'sf', 80);
+('BRG-0001', 'fsdfsd', 1, 'sfd', 'sdf', 'sdf', 'sf', 58);
 
 -- --------------------------------------------------------
 
@@ -87,7 +87,13 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id_mahasiswa`, `nama_mahasiswa`, `nim`, `semester`, `prodi`, `password`) VALUES
-(3, 'Hadi', '123', 1, 'Gizi', '202cb962ac59075b964b07152d234b70');
+(3, 'Hadi', '123', 1, 'Gizi', '202cb962ac59075b964b07152d234b70'),
+(4, 'Budi', '1234', 1, 'Farmasi', '81dc9bdb52d04dc20036dbd8313ed055'),
+(5, 'Romeo', '12345', 2, 'Farmasi', '827ccb0eea8a706c4c34a16891f84e7b'),
+(6, 'satu', '234', 6, 'MB', '202cb962ac59075b964b07152d234b70'),
+(7, '4123', '32', 6, 'MB', '202cb962ac59075b964b07152d234b70'),
+(8, '234', '564', 8, 'HI', '202cb962ac59075b964b07152d234b70'),
+(9, 'Kaka', '321', 2, 'Gizi', 'caf1a3dfb505ffed0d024130f58c5cfa');
 
 -- --------------------------------------------------------
 
@@ -104,6 +110,7 @@ CREATE TABLE `peminjaman_barang` (
   `tanggal_peminjaman` date NOT NULL,
   `tanggal_selesai` date NOT NULL,
   `status` enum('Returned','Approved','Disapproved','Pending') DEFAULT 'Pending',
+  `pj` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -112,9 +119,8 @@ CREATE TABLE `peminjaman_barang` (
 -- Dumping data for table `peminjaman_barang`
 --
 
-INSERT INTO `peminjaman_barang` (`id_peminjaman_barang`, `mahasiswa_id`, `barang_kd`, `jumlah_barang`, `tujuan`, `tanggal_peminjaman`, `tanggal_selesai`, `status`, `created_at`, `user_id`) VALUES
-(3, 3, 'BRG-0001', 15, 'sdfs', '2023-08-04', '2023-09-08', 'Returned', '2023-08-31 08:46:59', 2),
-(4, 3, 'BRG-0001', 20, 'fsadfs', '2023-08-10', '2023-08-22', 'Approved', '2023-08-31 08:48:37', 2);
+INSERT INTO `peminjaman_barang` (`id_peminjaman_barang`, `mahasiswa_id`, `barang_kd`, `jumlah_barang`, `tujuan`, `tanggal_peminjaman`, `tanggal_selesai`, `status`, `pj`, `created_at`, `user_id`) VALUES
+(1, 3, 'BRG-0001', 2, 'acara', '2023-09-05', '2023-09-13', 'Approved', 'Pak Budi', '2023-09-10 09:36:36', 2);
 
 -- --------------------------------------------------------
 
@@ -130,6 +136,7 @@ CREATE TABLE `peminjaman_ruangan` (
   `tanggal_peminjaman` date NOT NULL,
   `tanggal_selesai` date NOT NULL,
   `status` enum('Approved','Disapproved','Pending') NOT NULL DEFAULT 'Pending',
+  `pj` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -138,8 +145,8 @@ CREATE TABLE `peminjaman_ruangan` (
 -- Dumping data for table `peminjaman_ruangan`
 --
 
-INSERT INTO `peminjaman_ruangan` (`id_peminjaman_ruangan`, `mahasiswa_id`, `ruangan_id`, `tujuan`, `tanggal_peminjaman`, `tanggal_selesai`, `status`, `created_at`, `user_id`) VALUES
-(2, 3, 1, 'fsad', '2023-08-22', '2023-08-26', 'Approved', '2023-08-31 09:09:35', 2);
+INSERT INTO `peminjaman_ruangan` (`id_peminjaman_ruangan`, `mahasiswa_id`, `ruangan_id`, `tujuan`, `tanggal_peminjaman`, `tanggal_selesai`, `status`, `pj`, `created_at`, `user_id`) VALUES
+(1, 3, 3, 'Acara', '2023-09-08', '2023-09-20', 'Approved', 'Pak Nanang', '2023-09-10 09:32:28', 2);
 
 -- --------------------------------------------------------
 
@@ -163,7 +170,8 @@ CREATE TABLE `pengaduan` (
 
 INSERT INTO `pengaduan` (`id_pengaduan`, `mahasiswa_id`, `judul`, `isi`, `status`, `created_at`, `user_id`) VALUES
 (2, 3, 'judul', 'isi', 'Selesai', '2023-08-31 05:36:08', 2),
-(3, 3, 'sdfs', 'huihui', 'Selesai', '2023-08-31 06:23:15', 2);
+(3, 3, 'sdfs', 'huihui', 'Selesai', '2023-08-31 06:23:15', 2),
+(4, 9, 'hehe', '123', 'Selesai', '2023-09-06 20:21:28', 3);
 
 -- --------------------------------------------------------
 
@@ -182,7 +190,8 @@ CREATE TABLE `ruangan` (
 --
 
 INSERT INTO `ruangan` (`id_ruangan`, `nama_ruangan`, `lokasi`) VALUES
-(1, 'Lab', 'sdf');
+(1, 'Lab', 'sdf'),
+(3, 'Lab Komputer', 'lt 2');
 
 -- --------------------------------------------------------
 
@@ -204,7 +213,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nama`, `email`, `username`, `level`, `password`) VALUES
-(2, 'Super Admin', 'superadmin@email.com', 'superadmin', 'Super Admin', '202cb962ac59075b964b07152d234b70');
+(2, 'Super Admin', 'superadmin@email.com', 'superadmin', 'Super Admin', '202cb962ac59075b964b07152d234b70'),
+(3, 'Admin', 'admin@email.com', 'admin', 'Admin', '202cb962ac59075b964b07152d234b70');
 
 --
 -- Indexes for dumped tables
@@ -282,37 +292,37 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `peminjaman_barang`
 --
 ALTER TABLE `peminjaman_barang`
-  MODIFY `id_peminjaman_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_peminjaman_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `peminjaman_ruangan`
 --
 ALTER TABLE `peminjaman_ruangan`
-  MODIFY `id_peminjaman_ruangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_peminjaman_ruangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  MODIFY `id_pengaduan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pengaduan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ruangan`
 --
 ALTER TABLE `ruangan`
-  MODIFY `id_ruangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_ruangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

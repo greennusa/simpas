@@ -73,21 +73,27 @@
                     <td> <?php echo $data['nama'] ?> </td>
                 </tr>
                 <?php } ?>
-                <?php if($_SESSION['level'] != 'mahasiswa') { ?>
+                <?php if($_SESSION['level'] != 'mahasiswi') { ?>
+                <form action="" method="POST">
                 <tr>
                     <th>Ubah Status</th>
                     <th> : </th>
                     <td>
-                        <form action="" method="POST">
-                            <select name="new_status" class="form-control">
-                                <option value="Approved" <?php if($data['status'] == "Approved") echo "selected"; ?>>Approved</option>
-                                <option value="Disapproved" <?php if($data['status'] == "Disapproved") echo "selected"; ?>>Disapproved</option>
-                            </select>
-                            <button type="submit" class="btn btn-primary mt-4" id="updateButtonruangan" name="update_status">Ubah Status</button>
-                        </form>
+                        <select name="new_status" class="form-control">
+                            <option value="Approved" <?php if($data['status'] == "Approved") echo "selected"; ?>>Approved</option>
+                            <option value="Disapproved" <?php if($data['status'] == "Disapproved") echo "selected"; ?>>Disapproved</option>
+                        </select>
                     </td>
                 </tr>
-
+                <tr>
+                    <th>Penanggung Jawab</th>
+                    <th> : </th>
+                    <td>
+                        <input type="text" name="pj" class="form-control" value="<?php echo $data['pj'] ?>">
+                        <button type="submit" class="btn btn-primary mt-4" id="updateButtonruangan" name="update_status">Ubah Status</button>
+                    </td>
+                </tr>
+                </form>
                 <?php } ?>
                 
             </table>
@@ -100,9 +106,10 @@
 if(isset($_POST['update_status'])){
     $new_status = $_POST['new_status'];
     $id_user = $_SESSION['id'];
+    $pj = $_POST['pj'];
 
     // Query update data
-    $sql = "UPDATE peminjaman_ruangan SET status='$new_status', user_id='$id_user' WHERE id_peminjaman_ruangan='$id_peminjaman_ruangan'";
+    $sql = "UPDATE peminjaman_ruangan SET status='$new_status', user_id='$id_user', pj='$pj' WHERE id_peminjaman_ruangan='$id_peminjaman_ruangan'";
 
     // Eksekusi query
     if ($conn->query($sql) === TRUE) {

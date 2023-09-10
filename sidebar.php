@@ -24,8 +24,7 @@
             <span>Dashboard</span>
         </a>
     </li>
-
-    <?php if($_SESSION['level'] != 'mahasiswa'): ?>
+    <?php if($_SESSION['level'] != 'mahasiswi'): ?>
     <!-- Data Master Links -->
     <li
         class="nav-item <?php echo in_array($currentPage, ['kategori', 'barang', 'ruangan', 'mahasiswa']) ? 'active' : '' ?>">
