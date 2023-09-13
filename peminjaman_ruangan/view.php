@@ -36,7 +36,7 @@
                 <tr>
                     <th>Ruangan</th>
                     <th> : </th>
-                    <td><?php echo $data['nama_ruangan'] == '' ? '-' : $data['nama_ruangan']; ?></td>
+                    <td><?php echo $data['nama_ruangan'] == '' ? '-' : $data['nama_ruangan'] .'-'. $data['lokasi']; ?></td>
                 </tr>
                 <tr>
                     <th>Tujuan Peminjaman</th>
