@@ -8,7 +8,7 @@
             <?php
             // Mengambil data berdasarkan ID pengaduan
             $id_pengaduan = $_GET['id'];
-            $sql = "SELECT * FROM pengaduan JOIN mahasiswa ON pengaduan.mahasiswa_id = mahasiswa.id_mahasiswa LEFT JOIN user ON pengaduan.user_id = user.id_user WHERE id_pengaduan='$id_pengaduan'";
+            $sql = "SELECT * FROM pengaduan LEFT JOIN mahasiswa ON pengaduan.mahasiswa_id = mahasiswa.id_mahasiswa LEFT JOIN user ON pengaduan.user_id = user.id_user WHERE id_pengaduan='$id_pengaduan'";
             $result = $conn->query($sql);
             $data = $result->fetch_assoc();
             ?>
@@ -16,22 +16,22 @@
                 <tr>
                     <th width="20%">NIM</th>
                     <th width="5%"> : </th>
-                    <td><?php echo $data['nim'] ?></td>
+                    <td><?php echo $data['nim'] == '' ? '-' : $data['nim']; ?></td>
                 </tr>
                 <tr>
                     <th>Nama</th>
                     <th> : </th>
-                    <td><?php echo $data['nama_mahasiswa'] ?></td>
+                    <td><?php echo $data['nama_mahasiswa'] == '' ? '-' : $data['nama_mahasiswa']; ?></td>
                 </tr>
                 <tr>
                     <th>Prodi</th>
                     <th> : </th>
-                    <td><?php echo $data['prodi'] ?></td>
+                    <td><?php echo $data['prodi'] == '' ? '-' : $data['prodi']; ?></td>
                 </tr>
                 <tr>
                     <th>Semester</th>
                     <th> : </th>
-                    <td><?php echo $data['semester'] ?></td>
+                    <td><?php echo $data['semester'] == '' ? '-' : $data['semester']; ?></td>
                 </tr>
                 <!-- kategori -->
                 <tr>
@@ -68,64 +68,46 @@
                     <th> : </th>
                     <td>
                         <?php if($data['status'] == "Pending"){ ?>
-                            <span class="badge badge-warning"><?php echo $data['status'] ?></span>
+                        <span class="badge badge-warning"><?php echo $data['status'] ?></span>
                         <?php } else { ?>
-                            <span class="badge badge-success"><?php echo $data['status'] ?></span>
+                        <span class="badge badge-success"><?php echo $data['status'] ?></span>
                         <?php } ?>
                     </td>
                 </tr>
-                <?php if($data['status'] == "Selesai") { ?>
+                <?php if($data['status'] != "Pending") { ?>
                 <tr>
-                    <th>Diterima oleh</th>
+                    <th>Diverifikasi oleh</th>
                     <th> : </th>
                     <td> <?php echo $data['nama'] ?> </td>
                 </tr>
                 <?php } ?>
-                
+                <?php if($data['status'] == "Pending" && $_SESSION['level'] != 'mahasiswi') { ?>
+                <form action="" method="POST">
+                    <tr>
+                        <th>Ubah Status</th>
+                        <th> : </th>
+                        <td>
+                            <select name="new_status" class="form-control">
+                                <option value="Selesai">Selesai</option>
+                                <option value="Ditolak">Tolak</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary mt-4" id="updateButtonPengaduan"
+                                name="update">Ubah Status</button>
+                        </td>
+                    </tr>
+                </form>
+                <?php } ?>
             </table>
 
-            <?php if($data['status'] == "Pending" && $_SESSION['level'] != 'mahasiswi') { ?>
-            <form action="" method="POST">
-                <button type="button" class="btn btn-primary" id="updateButton" name="update">Terima Laporan</button>
-            </form>
-            <?php } ?>
         </div>
     </div>
 </div>
-<script>
-document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById('updateButton').addEventListener('click', function() {
-        Swal.fire({
-            title: 'Apakah Anda yakin?',
-            text: 'Anda akan menerima laporan ini.',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya, terima!',
-            cancelButtonText: 'Tidak, batalkan!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Jika user mengklik "Ya, terima", submit form
-                let form = document.createElement('form');
-                form.method = 'POST';
-                form.action = ''; // Action sesuai dengan kebutuhan Anda
-                let input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'update';
-                form.appendChild(input);
-                document.body.appendChild(form);
-                form.submit();
-            }
-        });
-    });
-});
-</script>
-
-
 <?php
     if(isset($_POST['update'])){
         $id_user = $_SESSION['id'];
+        $status = $_POST['new_status'];
         // Query update data
-        $sql = "UPDATE pengaduan SET status='Selesai', user_id='$id_user' WHERE id_pengaduan='$id_pengaduan'";
+        $sql = "UPDATE pengaduan SET status='$status', user_id='$id_user' WHERE id_pengaduan='$id_pengaduan'";
 
         // Eksekusi query
         if ($conn->query($sql) === TRUE) {

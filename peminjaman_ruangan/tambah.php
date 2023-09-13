@@ -30,6 +30,10 @@
                         <input type="text" id="prodi" class="form-control" readonly
                             value="<?php echo $data['prodi'] ?>">
                     </div>
+                    <div class="mb-3">
+                        <label for="pj">Penanggung Jawab</label>
+                        <input type="text" name="pj" id="pj" class="form-control" required>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
@@ -74,9 +78,10 @@
         $tujuan = $_POST['tujuan'];
         $tanggal_peminjaman = $_POST['tanggal_peminjaman'];
         $tanggal_selesai = $_POST['tanggal_selesai'];
+        $pj = $_POST['pj'];
 
         // Query insert data
-        $sql = "INSERT INTO peminjaman_ruangan (mahasiswa_id, ruangan_id, tujuan, tanggal_peminjaman, tanggal_selesai) VALUES ('$mahasiswa_id', '$ruangan_id', '$tujuan', '$tanggal_peminjaman', '$tanggal_selesai')";
+        $sql = "INSERT INTO peminjaman_ruangan (mahasiswa_id, ruangan_id, tujuan, tanggal_peminjaman, tanggal_selesai, pj) VALUES ('$mahasiswa_id', '$ruangan_id', '$tujuan', '$tanggal_peminjaman', '$tanggal_selesai', '$pj')";
 
         // Eksekusi query
         if ($conn->query($sql) === TRUE) {

@@ -84,7 +84,7 @@
         }
 
         // Hanya memindahkan file jika tidak ada error
-        if ($file_error === 0) {
+        if ($file_error === 0) {    
             $file_destination = __DIR__ . '/uploads/' . $filename;
             if(!move_uploaded_file($file_tmp, $file_destination)) {
                 echo "Gagal memindahkan file.";

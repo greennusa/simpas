@@ -35,8 +35,10 @@
                     <td>
                         <?php if($row['status'] == "Pending"){ ?>
                             <span class="badge badge-warning"><?php echo $row['status'] ?></span>
-                        <?php } else { ?>
+                        <?php } else if($row['status'] == 'Selesai') { ?>
                             <span class="badge badge-success"><?php echo $row['status'] ?></span>
+                        <?php }else{ ?>
+                            <span class="badge badge-danger"><?php echo $row['status'] ?></span>
                         <?php } ?>
                     </td>
                     <td>
@@ -62,20 +64,22 @@
                 <tbody>
                 <?php
                     $no = 1;
-                    $sql = mysqli_query($conn, "SELECT * FROM pengaduan JOIN mahasiswa ON pengaduan.mahasiswa_id = mahasiswa.id_mahasiswa ORDER BY id_pengaduan DESC");
+                    $sql = mysqli_query($conn, "SELECT * FROM pengaduan LEFT JOIN mahasiswa ON pengaduan.mahasiswa_id = mahasiswa.id_mahasiswa ORDER BY id_pengaduan DESC");
                     while($row = mysqli_fetch_assoc($sql)){
                 ?>
                 <tr>
                     <td><?php echo $no++ ?></td>
-                    <td><?php echo $row['nim'] ?></td>
-                    <td><?php echo $row['nama_mahasiswa'] ?></td>
+                    <td><?php echo $row['nim'] == '' ? '-' : $row['nim']; ?></td>
+                    <td><?php echo $row['nama_mahasiswa'] == '' ? '-' : $row['nama_mahasiswa']; ?></td>
                     <td><?php echo $row['judul'] ?></td>
                     <td><?php echo formatDateIndonesia($row['created_at']) ?></td>
                     <td>
                         <?php if($row['status'] == "Pending"){ ?>
                             <span class="badge badge-warning"><?php echo $row['status'] ?></span>
-                        <?php } else { ?>
+                        <?php } else if($row['status'] == 'Selesai') { ?>
                             <span class="badge badge-success"><?php echo $row['status'] ?></span>
+                        <?php }else{ ?>
+                            <span class="badge badge-danger"><?php echo $row['status'] ?></span>
                         <?php } ?>
                     </td>
                     <td>

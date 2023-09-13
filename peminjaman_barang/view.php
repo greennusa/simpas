@@ -8,7 +8,7 @@
             <?php
             // Mengambil data berdasarkan ID peminjaman_barang
             $id_peminjaman_barang = $_GET['id'];
-            $sql = "SELECT * FROM peminjaman_barang JOIN barang ON peminjaman_barang.barang_kd = barang.kd_barang JOIN mahasiswa ON peminjaman_barang.mahasiswa_id = mahasiswa.id_mahasiswa LEFT JOIN user ON peminjaman_barang.user_id = user.id_user WHERE id_peminjaman_barang='$id_peminjaman_barang'";
+            $sql = "SELECT * FROM peminjaman_barang LEFT JOIN barang ON peminjaman_barang.barang_kd = barang.kd_barang LEFT JOIN mahasiswa ON peminjaman_barang.mahasiswa_id = mahasiswa.id_mahasiswa LEFT JOIN user ON peminjaman_barang.user_id = user.id_user WHERE id_peminjaman_barang='$id_peminjaman_barang'";
             $result = $conn->query($sql);
             $data = $result->fetch_assoc();
             ?>
@@ -16,27 +16,27 @@
                 <tr>
                     <th width="30%">NIM</th>
                     <th width="5%"> : </th>
-                    <td><?php echo $data['nim'] ?></td>
+                    <td><?php echo $data['nim'] == '' ? '-' : $data['nim']; ?></td>
                 </tr>
                 <tr>
                     <th>Nama</th>
                     <th> : </th>
-                    <td><?php echo $data['nama_mahasiswa'] ?></td>
+                    <td><?php echo $data['nama_mahasiswa'] == '' ? '-' : $data['nama_mahasiswa']; ?></td>
                 </tr>
                 <tr>
                     <th>Prodi</th>
                     <th> : </th>
-                    <td><?php echo $data['prodi'] ?></td>
+                    <td><?php echo $data['prodi'] == '' ? '-' : $data['prodi'];?></td>
                 </tr>
                 <tr>
                     <th>Semester</th>
                     <th> : </th>
-                    <td><?php echo $data['semester'] ?></td>
+                    <td><?php echo $data['semester'] == '' ? '-' : $data['semester']; ?></td>
                 </tr>
                 <tr>
                     <th>Barang</th>
                     <th> : </th>
-                    <td><?php echo $data['nama_barang'] ?></td>
+                    <td><?php echo $data['nama_barang'] == '' ? '-' : $data['nama_barang'];?></td>
                 </tr>
                 <tr>
                     <th>Jumlah</th>
@@ -59,6 +59,11 @@
                     <td><?php echo formatDateIndonesia2($data['tanggal_selesai']) ?></td>
                 </tr>
                 <tr>
+                    <th>Penanggung Jawab</th>
+                    <th> : </th>
+                    <td><?php echo $data['pj'] ?></td>
+                </tr>
+                <tr>
                     <th>Status</th>
                     <th> : </th>
                     <td>
@@ -75,7 +80,7 @@
                 </tr>
                 <?php if($data['status'] == "Approved") { ?>
                 <tr>
-                    <th>Diterima oleh</th>
+                    <th>Diverifikasi oleh</th>
                     <th> : </th>
                     <td> <?php echo $data['nama'] ?> </td>
                 </tr>
@@ -94,18 +99,10 @@
                                     <option value="Returned" <?php if($data['status'] == "Returned") echo "selected"; ?>>Returned</option>
                                 <?php } ?>
                             </select>
+                            <button type="submit" class="btn btn-primary mt-4" id="updateButtonBarang" name="update_status">Ubah Status</button>
                     </td>
                 </tr>
                 <?php } ?>
-                <tr>
-                    <th>Penanggung Jawab</th>
-                    <th> : </th>
-                    <td>
-                        <!-- jika status returned input pj menjadi readonly -->
-                        <input type="text" name="pj" class="form-control" value="<?php echo $data['pj'] ?>" <?php if($data['status'] == "Returned") echo "readonly"; ?>>
-                        <button type="submit" class="btn btn-primary mt-4" id="updateButtonBarang" name="update_status">Ubah Status</button>
-                    </td>
-                </tr>
                 </form>
 
                 <?php } ?>
@@ -121,7 +118,6 @@ if(isset($_POST['update_status'])){
     $new_status = $_POST['new_status'];
     $previous_status = $data['status'];  // Menangkap status sebelumnya
     $id_user = $_SESSION['id'];
-    $pj = $_POST['pj'];
     $id_peminjaman_barang = $_GET['id'];
 
     $conn->begin_transaction();
@@ -165,7 +161,7 @@ if(isset($_POST['update_status'])){
             $conn->query($sql_update_stok);
         }
 
-        $sql = "UPDATE peminjaman_barang SET status='$new_status', user_id='$id_user', pj='$pj' WHERE id_peminjaman_barang='$id_peminjaman_barang'";
+        $sql = "UPDATE peminjaman_barang SET status='$new_status', user_id='$id_user' WHERE id_peminjaman_barang='$id_peminjaman_barang'";
         $conn->query($sql);
 
         $conn->commit();

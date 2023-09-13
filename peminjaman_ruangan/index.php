@@ -16,6 +16,7 @@
                     <tr>
                         <th>No</th>
                         <th>Ruangan</th>
+                        <th>Tujuan</th>
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Selesai</th>
                         <th>Penanggung Jawab</th>
@@ -27,12 +28,13 @@
                 <?php
                     $id_mahasiswa = $_SESSION['id'];
                     $no = 1;
-                    $sql = mysqli_query($conn, "SELECT * FROM peminjaman_ruangan JOIN ruangan ON peminjaman_ruangan.ruangan_id = ruangan.id_ruangan WHERE mahasiswa_id = '$id_mahasiswa' ORDER BY id_peminjaman_ruangan DESC");
+                    $sql = mysqli_query($conn, "SELECT * FROM peminjaman_ruangan LEFT JOIN ruangan ON peminjaman_ruangan.ruangan_id = ruangan.id_ruangan WHERE mahasiswa_id = '$id_mahasiswa' ORDER BY id_peminjaman_ruangan DESC");
                     while($row = mysqli_fetch_assoc($sql)){
                 ?>
                 <tr>
                     <td><?php echo $no++ ?></td>
-                    <td><?php echo $row['nama_ruangan'] ?></td>
+                    <td><?php echo $row['nama_ruangan'] == '' ? '-' : $row['nama_ruangan']; ?></td>
+                    <td><?php echo $row['tujuan'] == '' ? '-' : $row['tujuan']; ?></td>
                     <td><?php echo formatDateIndonesia2($row['tanggal_peminjaman']) ?></td>
                     <td><?php echo formatDateIndonesia2($row['tanggal_selesai']) ?></td>
                     <td><?php echo $row['pj'] == null ? '-' : $row['pj'] ?></td>
@@ -60,6 +62,7 @@
                         <th>NIM</th>
                         <th>Nama</th>
                         <th>Ruangan</th>
+                        <th>Tujuan</th>
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Selesai</th>
                         <th>Penanggung Jawab</th>
@@ -70,17 +73,18 @@
                 <tbody>
                 <?php
                     $no = 1;
-                    $sql = mysqli_query($conn, "SELECT * FROM peminjaman_ruangan JOIN ruangan ON peminjaman_ruangan.ruangan_id = ruangan.id_ruangan JOIN mahasiswa ON peminjaman_ruangan.mahasiswa_id = mahasiswa.id_mahasiswa ORDER BY peminjaman_ruangan.id_peminjaman_ruangan DESC");
+                    $sql = mysqli_query($conn, "SELECT * FROM peminjaman_ruangan LEFT JOIN ruangan ON peminjaman_ruangan.ruangan_id = ruangan.id_ruangan LEFT JOIN mahasiswa ON peminjaman_ruangan.mahasiswa_id = mahasiswa.id_mahasiswa ORDER BY peminjaman_ruangan.id_peminjaman_ruangan DESC");
                     while($row = mysqli_fetch_assoc($sql)){
                 ?>
                 <tr>
                     <td><?php echo $no++ ?></td>
-                    <td><?php echo $row['nim'] ?></td>
-                    <td><?php echo $row['nama_mahasiswa'] ?></td>
-                    <td><?php echo $row['nama_ruangan'] ?></td>
+                    <td><?php echo $row['nim'] == '' ? '-' : $row['nim']; ?></td>
+                    <td><?php echo $row['nama_mahasiswa'] == '' ? '-' : $row['nama_mahasiswa']; ?></td>
+                    <td><?php echo $row['nama_ruangan'] == '' ? '-' : $row['nama_ruangan'];?></td>
+                    <td><?php echo $row['tujuan'] == '' ? '-' : $row['tujuan'];?></td>
                     <td><?php echo formatDateIndonesia2($row['tanggal_peminjaman']) ?></td>
                     <td><?php echo formatDateIndonesia2($row['tanggal_selesai']) ?></td>
-                    <td><?php echo $row['pj'] == null ? '-' : $row['pj'] ?></td>
+                    <td><?php echo $row['pj'] ?></td>
                     <td>
                         <?php if($row['status'] == "Pending"){ ?>
                             <span class="badge badge-warning"><?php echo $row['status'] ?></span>

@@ -8,7 +8,7 @@
             <?php
             // Mengambil data berdasarkan ID peminjaman_ruangan
             $id_peminjaman_ruangan = $_GET['id'];
-            $sql = "SELECT * FROM peminjaman_ruangan JOIN ruangan ON peminjaman_ruangan.ruangan_id = ruangan.id_ruangan JOIN mahasiswa ON peminjaman_ruangan.mahasiswa_id = mahasiswa.id_mahasiswa LEFT JOIN user ON peminjaman_ruangan.user_id = user.id_user WHERE id_peminjaman_ruangan='$id_peminjaman_ruangan'";
+            $sql = "SELECT * FROM peminjaman_ruangan LEFT JOIN ruangan ON peminjaman_ruangan.ruangan_id = ruangan.id_ruangan LEFT JOIN mahasiswa ON peminjaman_ruangan.mahasiswa_id = mahasiswa.id_mahasiswa LEFT JOIN user ON peminjaman_ruangan.user_id = user.id_user WHERE id_peminjaman_ruangan='$id_peminjaman_ruangan'";
             $result = $conn->query($sql);
             $data = $result->fetch_assoc();
             ?>
@@ -16,27 +16,27 @@
                 <tr>
                     <th width="30%">NIM</th>
                     <th width="5%"> : </th>
-                    <td><?php echo $data['nim'] ?></td>
+                    <td><?php echo $data['nim'] == '' ? '-' : $data['nim']; ?></td>
                 </tr>
                 <tr>
                     <th>Nama</th>
                     <th> : </th>
-                    <td><?php echo $data['nama_mahasiswa'] ?></td>
+                    <td><?php echo $data['nama_mahasiswa'] == '' ? '-' : $data['nama_mahasiswa']; ?></td>
                 </tr>
                 <tr>
                     <th>Prodi</th>
                     <th> : </th>
-                    <td><?php echo $data['prodi'] ?></td>
+                    <td><?php echo $data['prodi'] == '' ? '-' : $data['prodi']; ?></td>
                 </tr>
                 <tr>
                     <th>Semester</th>
                     <th> : </th>
-                    <td><?php echo $data['semester'] ?></td>
+                    <td><?php echo $data['semester'] == '' ? '-' : $data['semester']; ?></td>
                 </tr>
                 <tr>
                     <th>Ruangan</th>
                     <th> : </th>
-                    <td><?php echo $data['nama_ruangan'] ?></td>
+                    <td><?php echo $data['nama_ruangan'] == '' ? '-' : $data['nama_ruangan']; ?></td>
                 </tr>
                 <tr>
                     <th>Tujuan Peminjaman</th>
@@ -54,6 +54,11 @@
                     <td><?php echo formatDateIndonesia2($data['tanggal_selesai']) ?></td>
                 </tr>
                 <tr>
+                    <th>Penanggung Jawab</th>
+                    <th> : </th>
+                    <td><?php echo $data['pj'] ?></td>
+                </tr>
+                <tr>
                     <th>Status</th>
                     <th> : </th>
                     <td>
@@ -68,7 +73,7 @@
                 </tr>
                 <?php if($data['status'] == "Approved") { ?>
                 <tr>
-                    <th>Diterima oleh</th>
+                    <th>Diverifikasi oleh</th>
                     <th> : </th>
                     <td> <?php echo $data['nama'] ?> </td>
                 </tr>
@@ -83,13 +88,6 @@
                             <option value="Approved" <?php if($data['status'] == "Approved") echo "selected"; ?>>Approved</option>
                             <option value="Disapproved" <?php if($data['status'] == "Disapproved") echo "selected"; ?>>Disapproved</option>
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Penanggung Jawab</th>
-                    <th> : </th>
-                    <td>
-                        <input type="text" name="pj" class="form-control" value="<?php echo $data['pj'] ?>">
                         <button type="submit" class="btn btn-primary mt-4" id="updateButtonruangan" name="update_status">Ubah Status</button>
                     </td>
                 </tr>
@@ -109,7 +107,7 @@ if(isset($_POST['update_status'])){
     $pj = $_POST['pj'];
 
     // Query update data
-    $sql = "UPDATE peminjaman_ruangan SET status='$new_status', user_id='$id_user', pj='$pj' WHERE id_peminjaman_ruangan='$id_peminjaman_ruangan'";
+    $sql = "UPDATE peminjaman_ruangan SET status='$new_status', user_id='$id_user' WHERE id_peminjaman_ruangan='$id_peminjaman_ruangan'";
 
     // Eksekusi query
     if ($conn->query($sql) === TRUE) {
