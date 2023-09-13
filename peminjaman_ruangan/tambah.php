@@ -32,7 +32,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="pj">Penanggung Jawab</label>
-                        <input type="text" name="pj" id="pj" class="form-control" required>
+                        <input type="text" name="pj" id="pj" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -52,7 +52,7 @@
                             <?php
                     $ruangan_sql = mysqli_query($conn, "SELECT * FROM ruangan");
                     while($ruangan = mysqli_fetch_assoc($ruangan_sql)){
-                        echo "<option value='".$ruangan['id_ruangan']."'>".$ruangan['nama_ruangan']."</option>";
+                        echo "<option value='".$ruangan['id_ruangan']."'>".$ruangan['nama_ruangan']." - ".$ruangan['lokasi']."</option>";
                     }
                     ?>
                         </select>

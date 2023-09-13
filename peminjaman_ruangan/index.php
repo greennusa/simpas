@@ -33,7 +33,7 @@
                 ?>
                 <tr>
                     <td><?php echo $no++ ?></td>
-                    <td><?php echo $row['nama_ruangan'] == '' ? '-' : $row['nama_ruangan']; ?></td>
+                    <td><?php echo $row['nama_ruangan'] == '' ? '-' : $row['nama_ruangan'] .'-'. $row['lokasi']; ?></td>
                     <td><?php echo $row['tujuan'] == '' ? '-' : $row['tujuan']; ?></td>
                     <td><?php echo formatDateIndonesia2($row['tanggal_peminjaman']) ?></td>
                     <td><?php echo formatDateIndonesia2($row['tanggal_selesai']) ?></td>
@@ -80,7 +80,7 @@
                     <td><?php echo $no++ ?></td>
                     <td><?php echo $row['nim'] == '' ? '-' : $row['nim']; ?></td>
                     <td><?php echo $row['nama_mahasiswa'] == '' ? '-' : $row['nama_mahasiswa']; ?></td>
-                    <td><?php echo $row['nama_ruangan'] == '' ? '-' : $row['nama_ruangan'];?></td>
+                    <td><?php echo $row['nama_ruangan'] == '' ? '-' : $row['nama_ruangan'] .'-'. $row['lokasi'];?></td>
                     <td><?php echo $row['tujuan'] == '' ? '-' : $row['tujuan'];?></td>
                     <td><?php echo formatDateIndonesia2($row['tanggal_peminjaman']) ?></td>
                     <td><?php echo formatDateIndonesia2($row['tanggal_selesai']) ?></td>
