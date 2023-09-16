@@ -17,22 +17,18 @@
                             value="<?php echo $data['nama_mahasiswa'] ?>">
                     </div>
                     <div class="mb-3">
-                        <label for="nim">NIM</label>
-                        <input type="text" id="nim" class="form-control" readonly value="<?php echo $data['nim'] ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="semester">Semester</label>
-                        <input type="text" id="semester" class="form-control" readonly
-                            value="<?php echo $data['semester'] ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="prodi">Prodi</label>
-                        <input type="text" id="prodi" class="form-control" readonly
-                            value="<?php echo $data['prodi'] ?>">
-                    </div>
-                    <div class="mb-3">
                         <label for="pj">Penanggung Jawab</label>
-                        <input type="text" name="pj" id="pj" class="form-control">
+                        <select name="pj" id="pj" class="form-control" required>
+                            <option value="">-- Pilih Penanggung Jawab --</option>
+                            <option value="Mahasiswi">Mahasiswi</option>
+                            <option value="Dosen">Dosen</option>
+                            <option value="Tendik">Tendik</option>
+                            <option value="Staff">Staff</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tujuan">Tujuan Peminjaman</label>
+                        <input type="text" name="tujuan" id="tujuan" class="form-control" required>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -56,10 +52,6 @@
                     }
                     ?>
                         </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="tujuan">Tujuan Peminjaman</label>
-                        <input type="text" name="tujuan" id="tujuan" class="form-control" required>
                     </div>
                 </div>
             </div>

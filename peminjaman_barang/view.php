@@ -78,45 +78,34 @@
                         <?php } ?>
                     </td>
                 </tr>
-                <?php if($data['status'] == "Approved") { ?>
+                <?php if($data['status'] != "Pending") { ?>
                 <tr>
                     <th>Diverifikasi oleh</th>
                     <th> : </th>
                     <td> <?php echo $data['nama'] ?> </td>
                 </tr>
                 <?php } ?>
-                <?php if($_SESSION['level'] != 'mahasiswi') { ?>
-                    <?php if($data['status'] != 'Returned'){ ?>
-                <form action="" method="POST">
-                <tr>
-                    <th>Ubah Status</th>
-                    <th> : </th>
-                    <td>
-                            <select name="new_status" class="form-control">
-                                <option value="Approved" <?php if($data['status'] == "Approved") echo "selected"; ?>>Approved</option>
-                                <option value="Disapproved" <?php if($data['status'] == "Disapproved") echo "selected"; ?>>Disapproved</option>
-                                <?php if($data['status'] != 'Pending' && $data['status'] != 'Disapproved'){ ?>
-                                    <option value="Returned" <?php if($data['status'] == "Returned") echo "selected"; ?>>Returned</option>
-                                <?php } ?>
-                            </select>
-                            <button type="submit" class="btn btn-primary mt-4" id="updateButtonBarang" name="update_status">Ubah Status</button>
-                    </td>
-                </tr>
-                <?php } ?>
-                </form>
-
-                <?php } ?>
-                
             </table>
+                <?php if($_SESSION['level'] != 'user') { ?>
+                <form action="" method="POST">
+                    <?php if($data['status'] == "Pending") { ?>
+                    <button type="submit" class="btn btn-primary mt-4" name="terima">Terima Peminjaman</button>
+                    <button type="submit" class="btn btn-outline-danger mt-4 ml-4" name="tolak">Tolak Peminjaman</button>
+                    <?php } ?>
+                    <!-- jika status approved tampilkan button returned -->
+                    <?php if($data['status'] == "Approved") { ?>
+                        <button type="submit" class="btn btn-primary mt-4" name="kembali">Pengembalian</button>
+                    <?php } ?>
+                </form>
+            <?php } ?>
         </div>
     </div>
 </div>
 
 <?php
 
-if(isset($_POST['update_status'])){
-    $new_status = $_POST['new_status'];
-    $previous_status = $data['status'];  // Menangkap status sebelumnya
+if(isset($_POST['terima'])){
+    $new_status ='Approved';
     $id_user = $_SESSION['id'];
     $id_peminjaman_barang = $_GET['id'];
 
@@ -147,20 +136,6 @@ if(isset($_POST['update_status'])){
             $conn->query($sql_update_stok);
         }
 
-        if($new_status == "Returned") {
-            // Jika status sebelumnya adalah "Approved" dan status baru adalah "Returned", tambah stok kembali
-            if($previous_status == "Approved") {
-                $sql_update_stok = "UPDATE barang SET total = total + '$jumlah_barang_dipinjam' WHERE kd_barang = '$kd_barang'";
-                $conn->query($sql_update_stok);
-            }
-        }
-
-        // Jika status sebelumnya adalah "Approved" dan status baru adalah "Disapproved", tambah stok
-        if($previous_status == "Approved" && $new_status == "Disapproved") {
-            $sql_update_stok = "UPDATE barang SET total = total + '$jumlah_barang_dipinjam' WHERE kd_barang = '$kd_barang'";
-            $conn->query($sql_update_stok);
-        }
-
         $sql = "UPDATE peminjaman_barang SET status='$new_status', user_id='$id_user' WHERE id_peminjaman_barang='$id_peminjaman_barang'";
         $conn->query($sql);
 
@@ -170,6 +145,47 @@ if(isset($_POST['update_status'])){
         window.location.href='admin.php?page=peminjaman-barang&edit=true';
         </script>";
     } catch (Exception $e) {
+        $conn->rollback();
+        echo "Error: " . $e->getMessage();
+    }
+
+    $conn->close();
+}
+
+if(isset($_POST['tolak'])){
+    $new_status = "Disapproved";
+    $id_user = $_SESSION['id'];
+    $id_peminjaman_barang = $_GET['id'];
+
+    $sql = "UPDATE peminjaman_barang SET status='$new_status', user_id='$id_user' WHERE id_peminjaman_barang='$id_peminjaman_barang'";
+    $conn->query($sql);
+    echo "<script>
+            window.location.href='admin.php?page=peminjaman-barang&edit=true';
+        </script>";
+    $conn->close();
+}
+
+if(isset($_POST['kembali'])){
+    $new_status = "Returned";
+    $id_user = $_SESSION['id'];
+    $id_peminjaman_barang = $_GET['id'];
+    $jumlah_barang_dipinjam = $data['jumlah_barang'];
+
+    $conn->begin_transaction();
+    try{
+        // Jika status sebelumnya adalah "Approved" dan status baru adalah "Returned", tambah stok kembali
+        $sql_update_stok = "UPDATE barang SET total = total + '$jumlah_barang_dipinjam' WHERE kd_barang = '$kd_barang'";
+        $conn->query($sql_update_stok);
+        
+        $sql = "UPDATE peminjaman_barang SET status='$new_status', user_id='$id_user' WHERE id_peminjaman_barang='$id_peminjaman_barang'";
+        $conn->query($sql);
+
+        $conn->commit();
+
+        echo "<script>
+        window.location.href='admin.php?page=peminjaman-barang&edit=true';
+        </script>";
+    }catch (Exception $e) {
         $conn->rollback();
         echo "Error: " . $e->getMessage();
     }

@@ -2,7 +2,7 @@
 <?php require 'date_formatter.php'; ?>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Data Peminjaman Ruangan</h1>
-    <?php if($_SESSION['level'] == 'mahasiswi') : ?>
+    <?php if($_SESSION['level'] == 'user') : ?>
         <a href="admin.php?page=tambah-peminjaman-ruangan" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Tambah Data</a>
     <?php endif ?>
 </div>
@@ -10,7 +10,7 @@
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="table-responsive">
-            <?php if($_SESSION['level'] == 'mahasiswi') { ?>
+            <?php if($_SESSION['level'] == 'user') { ?>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>

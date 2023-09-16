@@ -71,43 +71,32 @@
                         <?php } ?>
                     </td>
                 </tr>
-                <?php if($data['status'] == "Approved") { ?>
+                <?php if($data['status'] != "Pending") { ?>
                 <tr>
                     <th>Diverifikasi oleh</th>
                     <th> : </th>
                     <td> <?php echo $data['nama'] ?> </td>
                 </tr>
                 <?php } ?>
-                <?php if($_SESSION['level'] != 'mahasiswi') { ?>
-                <form action="" method="POST">
-                <tr>
-                    <th>Ubah Status</th>
-                    <th> : </th>
-                    <td>
-                        <select name="new_status" class="form-control">
-                            <option value="Approved" <?php if($data['status'] == "Approved") echo "selected"; ?>>Approved</option>
-                            <option value="Disapproved" <?php if($data['status'] == "Disapproved") echo "selected"; ?>>Disapproved</option>
-                        </select>
-                        <button type="submit" class="btn btn-primary mt-4" id="updateButtonruangan" name="update_status">Ubah Status</button>
-                    </td>
-                </tr>
-                </form>
-                <?php } ?>
-                
             </table>
+            <?php if($_SESSION['level'] != 'user' AND $data['status'] == "Pending") { ?>
+                <form action="" method="POST">
+                    <button type="submit" class="btn btn-primary mt-4" id="updateButtonruangan" name="terima">Terima Peminjaman</button>
+                    <button type="submit" class="btn btn-outline-danger mt-4 ml-4" id="updateButtonruangan" name="tolak">Tolak Peminjaman</button>
+                </form>
+            <?php } ?>
         </div>
     </div>
 </div>
 
 <?php
 
-if(isset($_POST['update_status'])){
-    $new_status = $_POST['new_status'];
+if(isset($_POST['terima'])){
     $id_user = $_SESSION['id'];
     $pj = $_POST['pj'];
 
     // Query update data
-    $sql = "UPDATE peminjaman_ruangan SET status='$new_status', user_id='$id_user' WHERE id_peminjaman_ruangan='$id_peminjaman_ruangan'";
+    $sql = "UPDATE peminjaman_ruangan SET status='Approved', user_id='$id_user' WHERE id_peminjaman_ruangan='$id_peminjaman_ruangan'";
 
     // Eksekusi query
     if ($conn->query($sql) === TRUE) {
@@ -121,6 +110,26 @@ if(isset($_POST['update_status'])){
 
     $conn->close();
 }
+
+if(isset($_POST['tolak'])){
+    $id_peminjaman_ruangan = $_GET['id'];
+    $id_user = $_SESSION['id'];
+    
+    // Query update status menjadi "Disapproved"
+    $sql = "UPDATE peminjaman_ruangan SET status='Disapproved', user_id='$id_user' WHERE id_peminjaman_ruangan='$id_peminjaman_ruangan'";
+    
+    // Eksekusi query
+    if ($conn->query($sql) === TRUE) {
+        echo "<script>
+        window.location.href='admin.php?page=peminjaman-ruangan&edit=true';
+        </script>";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    
+    $conn->close();
+}
+
 
 ?>
 
