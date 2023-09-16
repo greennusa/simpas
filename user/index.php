@@ -11,28 +11,28 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>NIM</th>
                         <th>Nama</th>
-                        <th>Email</th>
-                        <th>Username</th>
-                        <th>Level</th>
+                        <th>Semester</th>
+                        <th>Prodi</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php
                     $no = 1;
-                    $sql = mysqli_query($conn, "SELECT * FROM user");
+                    $sql = mysqli_query($conn, "SELECT * FROM mahasiswa");
                     while($row = mysqli_fetch_assoc($sql)){
                 ?>
                 <tr>
                     <td><?php echo $no++; ?></td>
-                    <td><?php echo $row['nama']; ?></td>
-                    <td><?php echo $row['email']; ?></td>
-                    <td><?php echo $row['username']; ?></td>
-                    <td><?php echo $row['level']; ?></td>
+                    <td><?php echo $row['nim']; ?></td>
+                    <td><?php echo $row['nama_mahasiswa']; ?></td>
+                    <td><?php echo $row['semester']; ?></td>
+                    <td><?php echo $row['prodi']; ?></td>
                     <td>
-                        <a href="admin.php?page=edit-user&id=<?php echo $row['id_user']; ?>" class="btn btn-warning">Edit</a>
-                        <a href="admin.php?page=hapus-user&id=<?php echo $row['id_user']; ?>" class="btn btn-danger">Hapus</a>
+                        <a href="admin.php?page=edit-user&id=<?php echo $row['id_mahasiswa']; ?>" class="btn btn-warning">Edit</a>
+                        <a href="admin.php?page=hapus-user&id=<?php echo $row['id_mahasiswa']; ?>" class="btn btn-danger">Hapus</a>
                     </td>
                 </tr>
                 <?php } ?>

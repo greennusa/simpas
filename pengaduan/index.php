@@ -58,7 +58,7 @@
                     <tr>
                         <th>No</th>
                         <th>NIM</th>
-                        <th>Mahasiswa</th>
+                        <th>Nama</th>
                         <th>Judul</th>
                         <th>Tanggal Pengaduan</th>
                         <th>Status</th>

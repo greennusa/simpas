@@ -109,18 +109,6 @@ if (empty($_SESSION['username']) && empty($_SESSION['level'])) {
                                 case 'hapus-ruangan':
                                     include 'ruangan/hapus.php';
                                     break;
-                                case 'mahasiswa':
-                                    include 'mahasiswa/index.php';
-                                    break;
-                                case 'tambah-mahasiswa':
-                                    include 'mahasiswa/tambah.php';
-                                    break;
-                                case 'edit-mahasiswa':
-                                    include 'mahasiswa/edit.php';
-                                    break;
-                                case 'hapus-mahasiswa':
-                                    include 'mahasiswa/hapus.php';
-                                    break;
                                 case 'user':
                                     include 'user/index.php';
                                     break;
@@ -132,6 +120,18 @@ if (empty($_SESSION['username']) && empty($_SESSION['level'])) {
                                     break;
                                 case 'hapus-user':
                                     include 'user/hapus.php';
+                                    break;
+                                case 'admin':
+                                    include 'admin/index.php';
+                                    break;
+                                case 'tambah-admin':
+                                    include 'admin/tambah.php';
+                                    break;
+                                case 'edit-admin':
+                                    include 'admin/edit.php';
+                                    break;
+                                case 'hapus-admin':
+                                    include 'admin/hapus.php';
                                     break;
                                 case 'pengaduan':
                                     include 'pengaduan/index.php';

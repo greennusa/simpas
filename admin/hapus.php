@@ -1,17 +1,17 @@
 <?php
-    // Mengambil ID mahasiswa dari URL
-    $id_mahasiswa = $_GET['id'];
+    // Mengambil ID user dari URL
+    $id_user = $_GET['id'];
 
-    // Pastikan ID mahasiswa valid atau ada dalam database
-    if (!empty($id_mahasiswa) && is_numeric($id_mahasiswa)) {
+    // Pastikan ID user valid atau ada dalam database
+    if (!empty($id_user) && is_numeric($id_user)) {
         
         // Query untuk menghapus data
-        $sql = "DELETE FROM mahasiswa WHERE id_mahasiswa='$id_mahasiswa'";
+        $sql = "DELETE FROM user WHERE id_user='$id_user'";
 
         // Eksekusi query
         if ($conn->query($sql) === TRUE) {
             echo "<script>
-            window.location.href='admin.php?page=mahasiswa&delete=true';
+            window.location.href='admin.php?page=admin&delete=true';
             </script>";
         } else {
             echo "<script>
@@ -19,12 +19,12 @@
                 icon: 'error',
                 title: 'Gagal!',
                 text: 'Hapus data gagal. Error: ". $conn->error . "',
-                footer: '<a href=admin.php?page=mahasiswa>Kembali</a>',
+                footer: '<a href=admin.php?page=admin>Kembali</a>',
                 showConfirmButton: false,
                 timer: 5000, // Dialog akan menutup setelah 5 detik
                 didClose: () => {
                     // Redirect setelah dialog menutup
-                    window.location.href = 'admin.php?page=mahasiswa';
+                    window.location.href = 'admin.php?page=admin';
                 }
             });
         </script>";
@@ -34,6 +34,6 @@
         // Menutup koneksi
         $conn->close();
     } else {
-        echo "ID mahasiswa tidak valid.";
+        echo "ID user tidak valid.";
     }
 ?>

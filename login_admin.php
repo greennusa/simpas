@@ -7,12 +7,12 @@
     if(isset($_POST['login'])){
         include 'koneksi.php';
 
-        $nim = mysqli_real_escape_string($conn, $_POST['nim']);
+        $username = mysqli_real_escape_string($conn, $_POST['username']);
         $password = mysqli_real_escape_string($conn, $_POST['password']); 
-        $level = 'user';
+        $level = 'admin';
 
-        $stmt = $conn->prepare("SELECT * FROM mahasiswa WHERE nim=? AND password=?");
-        $stmt->bind_param("ss", $nim, md5($password));
+        $stmt = $conn->prepare("SELECT * FROM user WHERE (username=? OR email=?) AND password=?");
+        $stmt->bind_param("sss", $username, $username, md5($password));
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -20,9 +20,9 @@
 
         if($cek > 0){
             $data = $result->fetch_assoc();
-            $_SESSION['username'] = $data['nim'];
-            $_SESSION['id'] = $data['id_mahasiswa'];
-            $_SESSION['nama'] = $data['nama_mahasiswa'];
+            $_SESSION['username'] = $data['username'];
+            $_SESSION['id'] = $data['id_user'];
+            $_SESSION['nama'] = $data['nama'];
             $_SESSION['level'] = $level;
             echo "<script>window.location.href='admin.php?login=true';</script>";
         } else {
@@ -42,7 +42,7 @@
     <meta name="author" content="GreenNusa Computindo">
     <link href='assets/img/unida_logo.png' rel='shortcut icon'>
 
-    <title>Login User- Simpas</title>
+    <title>Login Admin- Simpas</title>
 
     <!-- Custom fonts for this template-->
     <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -92,14 +92,14 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 mb-4 text-uppercase"><strong>Login User</strong></h1>
+                                        <h1 class="h4 mb-4 text-uppercase"><strong>Login Admin</strong></h1>
                                         <hr>
                                     </div>
                                     <form class="user" method="POST">
                                         <div class="form-group">
-                                            <input name="nim" type="text" class="form-control"
-                                                id="exampleInputEmail"
-                                                placeholder="Masukkan NIM" autofocus required>
+                                            <input name="username" type="text" class="form-control"
+                                                id="exampleInputEmail" aria-describedby="emailHelp"
+                                                placeholder="Masukkan Email atau Username" autofocus required>
                                         </div>
                                         <div class="form-group">
                                             <input name="password" type="password" class="form-control"
@@ -109,7 +109,7 @@
                                     </form>
                                     <hr>
                                     <div class="text-center small">
-                                        Admin? <a href="login_admin.php">Login disini!</a>
+                                        User? <a href="index.php">Login disini!</a>
                                     </div>
                                 </div>
                             </div>

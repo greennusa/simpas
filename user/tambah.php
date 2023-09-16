@@ -6,23 +6,46 @@
         <div class="col-md-6">
             <form action="" method="POST">
                 <div class="mb-3">
-                    <label for="nama">Nama</label>
-                    <input type="text" name="nama" id="nama" class="form-control" required>
+                    <label for="nim">NIM</label>
+                    <input type="text" name="nim" id="nim" class="form-control" required autofocus>
                 </div>
                 <div class="mb-3">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" class="form-control" required>
+                    <label for="nama_mahasiswa">Nama</label>
+                    <input type="text" name="nama_mahasiswa" id="nama_mahasiswa" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" id="username" class="form-control" required>
+                    <label for="semester">Semester</label>
+                    <select name="semester" id="semester" class="form-control" required>
+                        <option value="">-- Pilih Semester --</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select>
                 </div>
                 <div class="mb-3">
-                    <label for="level">Level</label>
-                    <select name="level" id="level" class="form-control" required>
-                        <option value="">-- Pilih Level --</option>
-                        <option value="Super Admin">Super Admin</option>
-                        <option value="Admin">Admin</option>
+                    <label for="prodi">Prodi</label>
+                    <select name="prodi" id="prodi" class="form-control" required>
+                        <option value="">-- Pilih Prodi --</option>
+                        <option value="Farmasi">Farmasi</option>
+                        <option value="Gizi">Gizi</option>
+                        <option value="Agro">Agro</option>
+                        <option value="Teknik Informatika">Teknik Informatika</option>
+                        <option value="HES">HES</option>
+                        <option value="PM">PM</option>
+                        <option value="PAI">PAI</option>
+                        <option value="TBI">TBI</option>
+                        <option value="PBA">PBA</option>
+                        <option value="IQT">IQT</option>
+                        <option value="AFI">AFI</option>
+                        <option value="MB">MB</option>
+                        <option value="EI">EI</option>
+                        <option value="HI">HI</option>
+                        <option value="ILKOM">ILKOM</option>
                     </select>
                 </div>
                 <div class="mb-3">
@@ -37,20 +60,24 @@
 
 <?php
     if(isset($_POST['tambah'])){
-        $nama = $_POST['nama'];
-        $email = $_POST['email'];
-        $username = $_POST['username'];
-        $level = $_POST['level'];
-        $password = md5($_POST['password']);
+        $nim = $_POST['nim'];
+        $nama_mahasiswa = $_POST['nama_mahasiswa'];
+        $semester = $_POST['semester'];
+        $prodi = $_POST['prodi'];
+        $password = md5($_POST['password']); // Simplified password hashing
 
-        $sql = "INSERT INTO user (nama, email, username, level, password) VALUES ('$nama', '$email', '$username', '$level', '$password')";
+        $sql = "INSERT INTO mahasiswa (nim, nama_mahasiswa, semester, prodi, password) VALUES ('$nim', '$nama_mahasiswa', '$semester', '$prodi', '$password')";
 
+        // Eksekusi query
         if ($conn->query($sql) === TRUE) {
-            echo "<script>window.location.href='admin.php?page=user&tambah=true';</script>";
+            echo "<script>
+            window.location.href='admin.php?page=user&tambah=true';
+            </script>";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
 
+        // Menutup koneksi
         $conn->close();
     }
 ?>

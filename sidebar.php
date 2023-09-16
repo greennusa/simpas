@@ -24,10 +24,10 @@
             <span>Dashboard</span>
         </a>
     </li>
-    <?php if($_SESSION['level'] != 'mahasiswi'): ?>
+    <?php if($_SESSION['level'] == 'admin'): ?>
     <!-- Data Master Links -->
     <li
-        class="nav-item <?php echo in_array($currentPage, ['kategori', 'barang', 'ruangan', 'mahasiswa']) ? 'active' : '' ?>">
+        class="nav-item <?php echo in_array($currentPage, ['kategori', 'barang', 'ruangan', 'user']) ? 'active' : '' ?>">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
             aria-controls="collapseTwo">
             <span>Data Master</span>
@@ -37,7 +37,7 @@
                 <a class="collapse-item" href="admin.php?page=kategori">Kategori</a>
                 <a class="collapse-item" href="admin.php?page=barang">Barang</a>
                 <a class="collapse-item" href="admin.php?page=ruangan">Ruangan</a>
-                <a class="collapse-item" href="admin.php?page=mahasiswa">Mahasiswa</a>
+                <a class="collapse-item" href="admin.php?page=user">User</a>
             </div>
         </div>
     </li>
@@ -64,11 +64,11 @@
         </a>
     </li>
 
-    <?php if($_SESSION['level'] == 'super admin'): ?>
+    <?php if($_SESSION['level'] == 'admin'): ?>
     <!-- User Link -->
-    <li class="nav-item <?php echo $currentPage === 'user' ? 'active' : '' ?>">
-        <a class="nav-link" href="admin.php?page=user">
-            <span>User</span>
+    <li class="nav-item <?php echo $currentPage === 'admin' ? 'active' : '' ?>">
+        <a class="nav-link" href="admin.php?page=admin">
+            <span>Admin</span>
         </a>
     </li>
     <?php endif; ?>

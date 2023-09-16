@@ -1,12 +1,12 @@
 <?php
-    // Mengambil ID user dari URL
-    $id_user = $_GET['id'];
+    // Mengambil ID mahasiswa dari URL
+    $id_mahasiswa = $_GET['id'];
 
-    // Pastikan ID user valid atau ada dalam database
-    if (!empty($id_user) && is_numeric($id_user)) {
+    // Pastikan ID mahasiswa valid atau ada dalam database
+    if (!empty($id_mahasiswa) && is_numeric($id_mahasiswa)) {
         
         // Query untuk menghapus data
-        $sql = "DELETE FROM user WHERE id_user='$id_user'";
+        $sql = "DELETE FROM mahasiswa WHERE id_mahasiswa='$id_mahasiswa'";
 
         // Eksekusi query
         if ($conn->query($sql) === TRUE) {
@@ -34,6 +34,6 @@
         // Menutup koneksi
         $conn->close();
     } else {
-        echo "ID user tidak valid.";
+        echo "ID mahasiswa tidak valid.";
     }
 ?>
