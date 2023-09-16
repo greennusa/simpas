@@ -25,7 +25,11 @@
                 <?php
                     $id_mahasiswa = $_SESSION['id'];
                     $no = 1;
-                    $sql = mysqli_query($conn, "SELECT * FROM pengaduan WHERE mahasiswa_id = '$id_mahasiswa' ORDER BY id_pengaduan DESC");
+                    if(isset($_GET['data']) && $_GET['data'] == 'all'){
+                        $sql = mysqli_query($conn, "SELECT * FROM pengaduan ORDER BY id_pengaduan DESC");
+                    } else {
+                        $sql = mysqli_query($conn, "SELECT * FROM pengaduan WHERE mahasiswa_id = '$id_mahasiswa' ORDER BY id_pengaduan DESC");
+                    }
                     while($row = mysqli_fetch_assoc($sql)){
                 ?>
                 <tr>

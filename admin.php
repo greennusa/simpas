@@ -160,6 +160,15 @@ if (empty($_SESSION['username']) && empty($_SESSION['level'])) {
                                 case 'view-peminjaman-ruangan':
                                     include 'peminjaman_ruangan/view.php';
                                     break;
+                                case 'barang-tersedia':
+                                    include 'barang/barang_tersedia.php';
+                                    break;
+                                case 'barang-dipinjam':
+                                    include 'barang/barang_dipinjam.php';
+                                    break;
+                                case 'ruangan-terpinjam':
+                                    include 'ruangan/ruangan_terpinjam.php';
+                                    break;
                                 default:
                                     include 'dashboard.php';
                                     break;
