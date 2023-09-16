@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 13, 2023 at 05:33 PM
+-- Generation Time: Sep 16, 2023 at 08:41 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.18
 
@@ -43,7 +43,8 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`kd_barang`, `nama_barang`, `kategori_id`, `merek`, `spesifikasi`, `lokasi`, `status_barang`, `total`) VALUES
-('BRG-0001', 'asdf', 2, 'sfd', 'fas', 'fas', 'fas', 2);
+('BRG-0001', 'asdf', 2, 'sfd', 'fas', 'fas', 'fas', 21),
+('BRG-0002', 'Komputer', 2, '1', 'a', '90', 'aman', 30);
 
 -- --------------------------------------------------------
 
@@ -110,7 +111,8 @@ CREATE TABLE `peminjaman_barang` (
 --
 
 INSERT INTO `peminjaman_barang` (`id_peminjaman_barang`, `mahasiswa_id`, `barang_kd`, `jumlah_barang`, `tujuan`, `tanggal_peminjaman`, `tanggal_selesai`, `status`, `pj`, `created_at`, `user_id`) VALUES
-(1, 2, 'BRG-0001', 1, '32', '2023-09-11', '2023-10-04', 'Approved', 'Pak Nanang', '2023-09-13 15:20:50', 1);
+(1, 2, 'BRG-0001', 3, '32', '2023-09-11', '2023-09-21', 'Returned', 'Pak Nanang', '2023-09-13 15:20:50', 1),
+(2, 2, 'BRG-0002', 2, 'acara', '2023-09-21', '2023-09-28', 'Pending', 'Tendik', '2023-09-16 18:15:33', NULL);
 
 -- --------------------------------------------------------
 
@@ -136,7 +138,9 @@ CREATE TABLE `peminjaman_ruangan` (
 --
 
 INSERT INTO `peminjaman_ruangan` (`id_peminjaman_ruangan`, `mahasiswa_id`, `ruangan_id`, `tujuan`, `tanggal_peminjaman`, `tanggal_selesai`, `status`, `pj`, `created_at`, `user_id`) VALUES
-(1, 1, 1, 'acara', '2023-09-14', '2023-09-14', 'Pending', 'Pak Budi', '2023-09-13 14:55:26', NULL);
+(1, 1, 1, 'acara', '2023-09-14', '2023-09-14', 'Approved', 'Pak Budi', '2023-09-13 14:55:26', 2),
+(2, 2, 2, 'acara', '2023-09-05', '2023-09-16', 'Pending', 'Pak Budi', '2023-09-13 15:57:09', 2),
+(3, 2, 2, 'acara', '2023-09-19', '2023-09-22', 'Pending', 'Mahasiswi', '2023-09-16 18:14:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -151,7 +155,7 @@ CREATE TABLE `pengaduan` (
   `isi` text NOT NULL,
   `kategori` varchar(100) NOT NULL,
   `file` text DEFAULT NULL,
-  `status` enum('Selesai','Pending','Ditolak') NOT NULL DEFAULT 'Pending',
+  `status` enum('Selesai','Pending','On Progress') NOT NULL DEFAULT 'Pending',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -161,7 +165,8 @@ CREATE TABLE `pengaduan` (
 --
 
 INSERT INTO `pengaduan` (`id_pengaduan`, `mahasiswa_id`, `judul`, `isi`, `kategori`, `file`, `status`, `created_at`, `user_id`) VALUES
-(1, 2, '2', '2', 'Kerusakan', '', 'Ditolak', '2023-09-13 15:23:24', 1);
+(2, 2, 'fsd', 'sdf', 'Kerusakan', 'pp.png', 'Pending', '2023-09-16 18:37:43', NULL),
+(3, 2, 'fs', 'fas', 'Kerusakan', 'cloudflare.png', 'Selesai', '2023-09-16 18:39:18', 1);
 
 -- --------------------------------------------------------
 
@@ -193,7 +198,6 @@ CREATE TABLE `user` (
   `nama` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
   `username` varchar(200) NOT NULL,
-  `level` enum('Super Admin','Admin') NOT NULL,
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -201,8 +205,8 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `nama`, `email`, `username`, `level`, `password`) VALUES
-(1, 'Super Admin', 'superadmin@email.com', 'superadmin', 'Super Admin', '202cb962ac59075b964b07152d234b70');
+INSERT INTO `user` (`id_user`, `nama`, `email`, `username`, `password`) VALUES
+(1, 'Super Admin', 'superadmin@email.com', 'superadmin', '202cb962ac59075b964b07152d234b70');
 
 --
 -- Indexes for dumped tables
@@ -281,25 +285,25 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `peminjaman_barang`
 --
 ALTER TABLE `peminjaman_barang`
-  MODIFY `id_peminjaman_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_peminjaman_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `peminjaman_ruangan`
 --
 ALTER TABLE `peminjaman_ruangan`
-  MODIFY `id_peminjaman_ruangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_peminjaman_ruangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  MODIFY `id_pengaduan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pengaduan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `ruangan`
@@ -311,7 +315,7 @@ ALTER TABLE `ruangan`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
