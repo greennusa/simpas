@@ -2,7 +2,7 @@
 <?php require 'date_formatter.php'; ?>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Data Pengaduan</h1>
-    <?php if($_SESSION['level'] == 'mahasiswi') : ?>
+    <?php if($_SESSION['level'] == 'user') : ?>
         <a href="admin.php?page=tambah-pengaduan" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Tambah Data</a>
     <?php endif ?>
 </div>
@@ -10,15 +10,16 @@
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="table-responsive">
-            <?php if($_SESSION['level'] == 'mahasiswi') { ?>
+            <?php if($_SESSION['level'] == 'user') { ?>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>File</th>
                         <th>Judul</th>
+                        <th>Isi</th>
                         <th>Tanggal Pengaduan</th>
                         <th>Status</th>
-                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,19 +35,22 @@
                 ?>
                 <tr>
                     <td><?php echo $no++ ?></td>
+                    <?php if($row['file'] != null) { ?>
+                        <td><img src="pengaduan/uploads/<?php echo $row['file'] ?>" alt="Gambar" width="200px"></td>
+                    <?php }else{ ?>
+                        <td>-</td>
+                    <?php } ?>
                     <td><?php echo $row['judul'] ?></td>
+                    <td><?php echo $row['isi'] ?></td>
                     <td><?php echo formatDateIndonesia($row['created_at']) ?></td>
                     <td>
                         <?php if($row['status'] == "Pending"){ ?>
-                            <span class="badge badge-warning"><?php echo $row['status'] ?></span>
-                        <?php } else if($row['status'] == 'Selesai') { ?>
-                            <span class="badge badge-success"><?php echo $row['status'] ?></span>
-                        <?php }else{ ?>
                             <span class="badge badge-danger"><?php echo $row['status'] ?></span>
+                        <?php } else if($row['status'] == 'On Progress') { ?>
+                            <span class="badge badge-warning"><?php echo $row['status'] ?></span>
+                        <?php }else{ ?>
+                            <span class="badge badge-success"><?php echo $row['status'] ?></span>
                         <?php } ?>
-                    </td>
-                    <td>
-                        <a class="btn btn-sm btn-primary" href="admin.php?page=view-pengaduan&id=<?php echo $row['id_pengaduan'] ?>">View</a>
                     </td>
                 </tr>
                 <?php } ?>
@@ -57,9 +61,10 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>NIM</th>
                         <th>Nama</th>
+                        <th>File</th>
                         <th>Judul</th>
+                        <th>Isi</th>
                         <th>Tanggal Pengaduan</th>
                         <th>Status</th>
                         <th>Aksi</th>
@@ -73,21 +78,31 @@
                 ?>
                 <tr>
                     <td><?php echo $no++ ?></td>
-                    <td><?php echo $row['nim'] == '' ? '-' : $row['nim']; ?></td>
                     <td><?php echo $row['nama_mahasiswa'] == '' ? '-' : $row['nama_mahasiswa']; ?></td>
+                    <?php if($row['file'] != null) { ?>
+                        <td><img src="pengaduan/uploads/<?php echo $row['file'] ?>" alt="Gambar" width="200px"></td>
+                    <?php }else{ ?>
+                        <td>-</td>
+                    <?php } ?>
                     <td><?php echo $row['judul'] ?></td>
+                    <td>Isi</td>
                     <td><?php echo formatDateIndonesia($row['created_at']) ?></td>
                     <td>
                         <?php if($row['status'] == "Pending"){ ?>
-                            <span class="badge badge-warning"><?php echo $row['status'] ?></span>
-                        <?php } else if($row['status'] == 'Selesai') { ?>
-                            <span class="badge badge-success"><?php echo $row['status'] ?></span>
-                        <?php }else{ ?>
                             <span class="badge badge-danger"><?php echo $row['status'] ?></span>
+                        <?php } else if($row['status'] == 'On Progress') { ?>
+                            <span class="badge badge-warning"><?php echo $row['status'] ?></span>
+                        <?php }else{ ?>
+                            <span class="badge badge-success"><?php echo $row['status'] ?></span>
                         <?php } ?>
                     </td>
                     <td>
-                        <a class="btn btn-sm btn-primary" href="admin.php?page=view-pengaduan&id=<?php echo $row['id_pengaduan'] ?>">View</a>
+                        <?php if($row['status'] == 'Pending'): ?>
+                        <form action="" method="POST">
+                            <input type="hidden" name="id_pengaduan" value="<?php echo $row['id_pengaduan'] ?>">
+                            <button type="submit" class="btn btn-primary btn-sm" name="terima">Terima Laporan</button>
+                        </form>
+                        <?php endif; ?>
                     </td>
                 </tr>
                 <?php } ?>
@@ -98,3 +113,25 @@
         </div>
     </div>
 </div>
+
+<?php
+    if(isset($_POST['terima'])){
+        $id_user = $_SESSION['id'];
+        $status = 'Selesai';
+        $id_pengaduan = $_POST['id_pengaduan'];
+        // Query update data
+        $sql = "UPDATE pengaduan SET status='$status', user_id='$id_user' WHERE id_pengaduan='$id_pengaduan'";
+
+        // Eksekusi query
+        if ($conn->query($sql) === TRUE) {
+            echo "<script>
+            window.location.href='admin.php?page=pengaduan&edit=true';
+            </script>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+
+        // Menutup koneksi
+        $conn->close();
+    }
+?>

@@ -17,10 +17,6 @@
                             value="<?php echo $data['nama_mahasiswa'] ?>">
                     </div>
                     <div class="mb-3">
-                        <label for="nim">NIM</label>
-                        <input type="text" id="nim" class="form-control" readonly value="<?php echo $data['nim'] ?>">
-                    </div>
-                    <div class="mb-3">
                         <label for="tanggal">Tanggal</label>
                         <input type="text" id="tanggal" class="form-control" readonly
                             value="<?php echo date('d F Y') ?>">
