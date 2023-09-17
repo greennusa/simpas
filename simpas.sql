@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 16, 2023 at 08:41 PM
+-- Generation Time: Sep 17, 2023 at 07:56 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.18
 
@@ -155,7 +155,7 @@ CREATE TABLE `pengaduan` (
   `isi` text NOT NULL,
   `kategori` varchar(100) NOT NULL,
   `file` text DEFAULT NULL,
-  `status` enum('Selesai','Pending','On Progress') NOT NULL DEFAULT 'Pending',
+  `status` enum('Finish','Pending','On Progress') NOT NULL DEFAULT 'Pending',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -165,8 +165,7 @@ CREATE TABLE `pengaduan` (
 --
 
 INSERT INTO `pengaduan` (`id_pengaduan`, `mahasiswa_id`, `judul`, `isi`, `kategori`, `file`, `status`, `created_at`, `user_id`) VALUES
-(2, 2, 'fsd', 'sdf', 'Kerusakan', 'pp.png', 'Pending', '2023-09-16 18:37:43', NULL),
-(3, 2, 'fs', 'fas', 'Kerusakan', 'cloudflare.png', 'Selesai', '2023-09-16 18:39:18', 1);
+(4, 2, 'fsd', 'svzdx', 'Kebersihan', 'empty_box.png', 'Finish', '2023-09-17 05:49:38', 1);
 
 -- --------------------------------------------------------
 
@@ -303,7 +302,7 @@ ALTER TABLE `peminjaman_ruangan`
 -- AUTO_INCREMENT for table `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  MODIFY `id_pengaduan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pengaduan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ruangan`

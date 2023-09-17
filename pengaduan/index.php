@@ -100,9 +100,16 @@
                         <?php if($row['status'] == 'Pending'): ?>
                         <form action="" method="POST">
                             <input type="hidden" name="id_pengaduan" value="<?php echo $row['id_pengaduan'] ?>">
-                            <button type="submit" class="btn btn-primary btn-sm" name="terima">Terima Laporan</button>
+                            <button type="submit" class="btn btn-primary btn-sm" name="progress" onclick="return confirm('Apakah Anda yakin ingin menerima laporan ini?')">Terima Laporan</button>
                         </form>
-                        <?php endif; ?>
+                        <?php elseif($row['status'] == 'On Progress'): ?>
+                            <form action="" method="POST">
+                            <input type="hidden" name="id_pengaduan" value="<?php echo $row['id_pengaduan'] ?>">
+                            <button type="submit" class="btn btn-primary btn-sm" name="selesai" onclick="return confirm('Apakah Anda yakin ingin menyelesaikan laporan ini?')">Selesai</button>
+                        </form>
+                        <?php else: ?>
+                            -
+                        <?php endif ?>
                     </td>
                 </tr>
                 <?php } ?>
@@ -115,9 +122,29 @@
 </div>
 
 <?php
-    if(isset($_POST['terima'])){
+    if(isset($_POST['progress'])){
         $id_user = $_SESSION['id'];
-        $status = 'Selesai';
+        $status = 'On Progress';
+        $id_pengaduan = $_POST['id_pengaduan'];
+        // Query update data
+        $sql = "UPDATE pengaduan SET status='$status', user_id='$id_user' WHERE id_pengaduan='$id_pengaduan'";
+
+        // Eksekusi query
+        if ($conn->query($sql) === TRUE) {
+            echo "<script>
+            window.location.href='admin.php?page=pengaduan&edit=true';
+            </script>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+
+        // Menutup koneksi
+        $conn->close();
+    }
+
+    if(isset($_POST['selesai'])){
+        $id_user = $_SESSION['id'];
+        $status = 'Finish';
         $id_pengaduan = $_POST['id_pengaduan'];
         // Query update data
         $sql = "UPDATE pengaduan SET status='$status', user_id='$id_user' WHERE id_pengaduan='$id_pengaduan'";
