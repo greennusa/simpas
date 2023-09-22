@@ -27,13 +27,16 @@
     <?php if($_SESSION['level'] == 'admin'): ?>
     <!-- Data Master Links -->
     <li
-        class="nav-item <?php echo in_array($currentPage, ['kategori', 'barang', 'ruangan', 'user']) ? 'active' : '' ?>">
+        class="nav-item <?php echo in_array($currentPage, ['satuan', 'gedung', 'biro', 'kategori', 'barang', 'ruangan', 'user']) ? 'active' : '' ?>">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
             aria-controls="collapseTwo">
             <span>Data Master</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="admin.php?page=satuan">Satuan</a>
+                <a class="collapse-item" href="admin.php?page=gedung">Gedung</a>
+                <a class="collapse-item" href="admin.php?page=biro">Biro</a>
                 <a class="collapse-item" href="admin.php?page=kategori">Kategori</a>
                 <a class="collapse-item" href="admin.php?page=barang">Barang</a>
                 <a class="collapse-item" href="admin.php?page=ruangan">Ruangan</a>

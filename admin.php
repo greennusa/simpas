@@ -169,6 +169,42 @@ if (empty($_SESSION['username']) && empty($_SESSION['level'])) {
                                 case 'ruangan-terpinjam':
                                     include 'ruangan/ruangan_terpinjam.php';
                                     break;
+                                case 'satuan':
+                                    include 'satuan/index.php';
+                                    break;
+                                case 'tambah-satuan':
+                                    include 'satuan/tambah.php';
+                                    break;
+                                case 'edit-satuan':
+                                    include 'satuan/edit.php';
+                                    break;
+                                case 'hapus-satuan':
+                                    include 'satuan/hapus.php';
+                                    break;
+                                case 'gedung':
+                                    include 'gedung/index.php';
+                                    break;
+                                case 'tambah-gedung':
+                                    include 'gedung/tambah.php';
+                                    break;
+                                case 'edit-gedung':
+                                    include 'gedung/edit.php';
+                                    break;
+                                case 'hapus-gedung':
+                                    include 'gedung/hapus.php';
+                                    break;
+                                case 'biro':
+                                    include 'biro/index.php';
+                                    break;
+                                case 'tambah-biro':
+                                    include 'biro/tambah.php';
+                                    break;
+                                case 'edit-biro':
+                                    include 'biro/edit.php';
+                                    break;
+                                case 'hapus-biro':
+                                    include 'biro/hapus.php';
+                                    break;
                                 default:
                                     include 'dashboard.php';
                                     break;

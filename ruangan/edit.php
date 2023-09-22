@@ -16,8 +16,16 @@
                 <input type="text" name="nama_ruangan" id="nama_ruangan" class="form-control" value="<?php echo $data['nama_ruangan']; ?>" required>
             </div>
             <div class="mb-3">
-                <label for="lokasi">Lokasi</label>
-                <input type="text" name="lokasi" id="lokasi" class="form-control" value="<?php echo $data['lokasi']; ?>" required>
+                <label for="gedung_id">Gedung</label>
+                <select name="gedung_id" id="gedung_id" class="form-control" required>
+                    <?php
+                    $gedung_sql = mysqli_query($conn, "SELECT * FROM gedung");
+                    while($gedung = mysqli_fetch_assoc($gedung_sql)){
+                        $selected = ($gedung['id_gedung'] == $data['gedung_id']) ? "selected" : "";
+                        echo "<option value='".$gedung['id_gedung']."' $selected>".$gedung['nama_gedung']."</option>";
+                    }
+                    ?>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary" name="update">Update</button>
         </form>
@@ -28,9 +36,9 @@
     if(isset($_POST['update'])){
         $id_ruangan = $_POST['id_ruangan'];
         $nama_ruangan = $_POST['nama_ruangan'];
-        $lokasi = $_POST['lokasi'];
+        $gedung_id = $_POST['gedung_id'];
 
-        $sql = "UPDATE ruangan SET nama_ruangan='$nama_ruangan', lokasi='$lokasi' WHERE id_ruangan='$id_ruangan'";
+        $sql = "UPDATE ruangan SET nama_ruangan='$nama_ruangan', gedung_id='$gedung_id' WHERE id_ruangan='$id_ruangan'";
 
         // Eksekusi query
         if ($conn->query($sql) === TRUE) {

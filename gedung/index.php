@@ -1,7 +1,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Data Ruangan</h1>
-    <a href="admin.php?page=tambah-ruangan" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Tambah Data</a>
+    <h1 class="h3 mb-0 text-gray-800">Data Gedung</h1>
+    <a href="admin.php?page=tambah-gedung" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Tambah Data</a>
 </div>
 
 <div class="card shadow mb-4">
@@ -11,24 +11,22 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Ruangan</th>
-                        <th>Gedung</th>
+                        <th>Nama Gedung</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php
                     $no = 1;
-                    $sql = mysqli_query($conn, "SELECT * FROM ruangan JOIN gedung ON ruangan.gedung_id=gedung.id_gedung");
+                    $sql = mysqli_query($conn, "SELECT * FROM gedung");
                     while($row = mysqli_fetch_assoc($sql)){
                 ?>
                 <tr>
                     <td><?php echo $no++ ?></td>
-                    <td><?php echo $row['nama_ruangan'] ?></td>
                     <td><?php echo $row['nama_gedung'] ?></td>
                     <td>
-                        <a href="admin.php?page=edit-ruangan&id=<?php echo $row['id_ruangan'] ?>" class="btn btn-warning">Edit</a>
-                        <a href="admin.php?page=hapus-ruangan&id=<?php echo $row['id_ruangan'] ?>" class="btn btn-danger">Hapus</a>
+                        <a class="btn btn-sm btn-warning" href="admin.php?page=edit-gedung&id=<?php echo $row['id_gedung'] ?>">Edit</a>
+                        <a class="btn btn-sm btn-danger" href="admin.php?page=hapus-gedung&id=<?php echo $row['id_gedung'] ?>">Hapus</a>
                     </td>
                 </tr>
                 <?php } ?>

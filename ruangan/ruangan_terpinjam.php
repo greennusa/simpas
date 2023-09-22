@@ -21,7 +21,7 @@
                 <tbody>
                 <?php
                     $no = 1;
-                    $sql = mysqli_query($conn, "SELECT * FROM peminjaman_ruangan JOIN ruangan ON peminjaman_ruangan.ruangan_id = ruangan.id_ruangan WHERE peminjaman_ruangan.status = 'Approved' AND peminjaman_ruangan.tanggal_selesai <= CURDATE()");
+                    $sql = mysqli_query($conn, "SELECT * FROM peminjaman_ruangan JOIN ruangan ON peminjaman_ruangan.ruangan_id = ruangan.id_ruangan JOIN gedung ON ruangan.gedung_id = gedung.id_gedung WHERE peminjaman_ruangan.status = 'Approved' AND peminjaman_ruangan.tanggal_selesai <= CURDATE()");
                     while($row = mysqli_fetch_assoc($sql)){
                 ?>
                 <tr>

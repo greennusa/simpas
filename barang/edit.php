@@ -21,7 +21,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="kategori_id">Kategori</label>
-                    <select name="kategori_id" id="kategori_id" class="form-control">
+                    <select name="kategori_id" id="kategori_id" class="form-control" required>
                         <?php
                         $kategori_sql = mysqli_query($conn, "SELECT * FROM kategori");
                         while($kategori = mysqli_fetch_assoc($kategori_sql)){

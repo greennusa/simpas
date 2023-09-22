@@ -10,8 +10,16 @@
                     <input type="text" name="nama_ruangan" id="nama_ruangan" class="form-control" required autofocus>
                 </div>
                 <div class="mb-3">
-                    <label for="lokasi">Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi" class="form-control" required>
+                    <label for="gedung_id">Gedung</label>
+                    <select name="gedung_id" id="gedung_id" class="form-control" required>
+                        <option value="">-- Pilih Gedung --</option>
+                    <?php
+                    $sql = mysqli_query($conn, "SELECT * FROM gedung");
+                    while($gedung = mysqli_fetch_assoc($sql)){
+                        echo "<option value='".$gedung['id_gedung']."'>".$gedung['nama_gedung']."</option>";
+                    }
+                    ?>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary" name="tambah">Tambah</button>
             </form>
@@ -22,9 +30,9 @@
 <?php
     if(isset($_POST['tambah'])){
         $nama_ruangan = $_POST['nama_ruangan'];
-        $lokasi = $_POST['lokasi'];
+        $gedung_id = $_POST['gedung_id'];
 
-        $sql = "INSERT INTO ruangan (nama_ruangan, lokasi) VALUES ('$nama_ruangan', '$lokasi')";
+        $sql = "INSERT INTO ruangan (nama_ruangan, gedung_id) VALUES ('$nama_ruangan', '$gedung_id')";
 
         // Eksekusi query
         if ($conn->query($sql) === TRUE) {
