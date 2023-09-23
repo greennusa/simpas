@@ -21,6 +21,7 @@
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Selesai</th>
                         <th>Penanggung Jawab</th>
+                        <th>Biro</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -29,7 +30,7 @@
                 <?php
                     $id_mahasiswa = $_SESSION['id'];
                     $no = 1;
-                    $sql = mysqli_query($conn, "SELECT * FROM peminjaman_barang LEFT JOIN barang ON peminjaman_barang.barang_kd = barang.kd_barang WHERE mahasiswa_id = '$id_mahasiswa' ORDER BY id_peminjaman_barang DESC");
+                    $sql = mysqli_query($conn, "SELECT * FROM peminjaman_barang LEFT JOIN barang ON peminjaman_barang.barang_kd = barang.kd_barang LEFT JOIN biro ON peminjaman_barang.biro_id = biro.id_biro LEFT JOIN dosen ON dosen.id_dosen = peminjaman_barang.dosen_id WHERE mahasiswa_id = '$id_mahasiswa' ORDER BY id_peminjaman_barang DESC");
                     while($row = mysqli_fetch_assoc($sql)){
                 ?>
                 <tr>
@@ -39,7 +40,8 @@
                     <td><?php echo $row['tujuan'] ?></td>
                     <td><?php echo formatDateIndonesia2($row['tanggal_peminjaman']) ?></td>
                     <td><?php echo formatDateIndonesia2($row['tanggal_selesai']) ?></td>
-                    <td><?php echo $row['pj'] ?></td>
+                    <td><?php echo $row['nama_dosen'] == '' ? '-' : $row['nama_dosen']; ?></td>
+                    <td><?php echo $row['nama_biro'] == '' ? '-' : $row['nama_biro']; ?></td>
                     <td>
                         <?php if($row['status'] == "Pending"){ ?>
                             <span class="badge badge-warning"><?php echo $row['status'] ?></span>
@@ -71,6 +73,7 @@
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Selesai</th>
                         <th>Penanggung Jawab</th>
+                        <th>Biro</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -78,7 +81,7 @@
                 <tbody>
                 <?php
                     $no = 1;
-                    $sql = mysqli_query($conn, "SELECT * FROM peminjaman_barang LEFT JOIN barang ON peminjaman_barang.barang_kd = barang.kd_barang LEFT JOIN mahasiswa ON peminjaman_barang.mahasiswa_id = mahasiswa.id_mahasiswa ORDER BY peminjaman_barang.id_peminjaman_barang DESC");
+                    $sql = mysqli_query($conn, "SELECT * FROM peminjaman_barang LEFT JOIN barang ON peminjaman_barang.barang_kd = barang.kd_barang LEFT JOIN mahasiswa ON peminjaman_barang.mahasiswa_id = mahasiswa.id_mahasiswa LEFT JOIN biro ON peminjaman_barang.biro_id = biro.id_biro LEFT JOIN dosen ON dosen.id_dosen = peminjaman_barang.dosen_id ORDER BY peminjaman_barang.id_peminjaman_barang DESC");
                     while($row = mysqli_fetch_assoc($sql)){
                 ?>
                 <tr>
@@ -90,7 +93,8 @@
                     <td><?php echo $row['tujuan'] ?></td>
                     <td><?php echo formatDateIndonesia2($row['tanggal_peminjaman']) ?></td>
                     <td><?php echo formatDateIndonesia2($row['tanggal_selesai']) ?></td>
-                    <td><?php echo $row['pj'] ?></td>
+                    <td><?php echo $row['nama_dosen'] == '' ? '-' : $row['nama_dosen']; ?></td>
+                    <td><?php echo $row['nama_biro'] == '' ? '-' : $row['nama_biro']; ?></td>
                     <td>
                         <?php if($row['status'] == "Pending"){ ?>
                             <span class="badge badge-warning"><?php echo $row['status'] ?></span>
