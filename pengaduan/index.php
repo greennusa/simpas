@@ -18,7 +18,7 @@
                         <th>File</th>
                         <th>Judul</th>
                         <th>Isi</th>
-                        <th>Tanggal Pengaduan</th>
+                        <th>Tanggal Kejadian</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -42,9 +42,9 @@
                     <?php } ?>
                     <td><?php echo $row['judul'] ?></td>
                     <td><?php echo $row['isi'] ?></td>
-                    <td><?php echo formatDateIndonesia($row['created_at']) ?></td>
+                    <td><?php echo $row['tgl'] ?></td>
                     <td>
-                        <?php if($row['status'] == "Pending"){ ?>
+                        <?php if($row['status'] == "Pending" || $row['status'] == "Rejected"){ ?>
                             <span class="badge badge-danger"><?php echo $row['status'] ?></span>
                         <?php } else if($row['status'] == 'On Progress') { ?>
                             <span class="badge badge-warning"><?php echo $row['status'] ?></span>
@@ -65,7 +65,7 @@
                         <th>File</th>
                         <th>Judul</th>
                         <th>Isi</th>
-                        <th>Tanggal Pengaduan</th>
+                        <th>Tanggal Kejadian</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -86,9 +86,9 @@
                     <?php } ?>
                     <td><?php echo $row['judul'] ?></td>
                     <td>Isi</td>
-                    <td><?php echo formatDateIndonesia($row['created_at']) ?></td>
+                    <td><?php echo $row['tgl'] ?></td>
                     <td>
-                        <?php if($row['status'] == "Pending"){ ?>
+                        <?php if($row['status'] == "Pending" || $row['status'] == "Rejected"){ ?>
                             <span class="badge badge-danger"><?php echo $row['status'] ?></span>
                         <?php } else if($row['status'] == 'On Progress') { ?>
                             <span class="badge badge-warning"><?php echo $row['status'] ?></span>
@@ -106,6 +106,7 @@
                             <form action="" method="POST">
                             <input type="hidden" name="id_pengaduan" value="<?php echo $row['id_pengaduan'] ?>">
                             <button type="submit" class="btn btn-primary btn-sm" name="selesai" onclick="return confirm('Apakah Anda yakin ingin menyelesaikan laporan ini?')">Selesai</button>
+                            <button type="submit" class="btn btn-outline-danger btn-sm" name="tolak" onclick="return confirm('Apakah Anda yakin ingin menolak laporan ini?')">Tolak Laporan</button>
                         </form>
                         <?php else: ?>
                             -
@@ -145,6 +146,26 @@
     if(isset($_POST['selesai'])){
         $id_user = $_SESSION['id'];
         $status = 'Finish';
+        $id_pengaduan = $_POST['id_pengaduan'];
+        // Query update data
+        $sql = "UPDATE pengaduan SET status='$status', user_id='$id_user' WHERE id_pengaduan='$id_pengaduan'";
+
+        // Eksekusi query
+        if ($conn->query($sql) === TRUE) {
+            echo "<script>
+            window.location.href='admin.php?page=pengaduan&edit=true';
+            </script>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+
+        // Menutup koneksi
+        $conn->close();
+    }
+
+    if(isset($_POST['tolak'])){
+        $id_user = $_SESSION['id'];
+        $status = 'Rejected';
         $id_pengaduan = $_POST['id_pengaduan'];
         // Query update data
         $sql = "UPDATE pengaduan SET status='$status', user_id='$id_user' WHERE id_pengaduan='$id_pengaduan'";

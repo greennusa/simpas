@@ -17,9 +17,8 @@
                             value="<?php echo $data['nama_mahasiswa'] ?>">
                     </div>
                     <div class="mb-3">
-                        <label for="tanggal">Tanggal</label>
-                        <input type="text" id="tanggal" class="form-control" readonly
-                            value="<?php echo date('d F Y') ?>">
+                        <label for="tanggal">Tanggal Kejadian</label>
+                        <input type="date" id="tanggal" class="form-control" name="tanggal">
                     </div>
                     <div class="mb-3">
                         <label for="kategori">Kategori</label>
@@ -61,6 +60,7 @@
         $isi = $_POST['isi'];
         $id_mahasiswa = $_SESSION['id'];
         $kategori = $_POST['kategori'];
+        $tanggal = $_POST['tanggal'];
 
         // Penanganan file
         $filename = NULL;
@@ -92,7 +92,7 @@
         }
 
         // Query insert data
-        $sql = "INSERT INTO pengaduan (mahasiswa_id, judul, isi, kategori, file) VALUES ('$id_mahasiswa', '$judul', '$isi', '$kategori', '$filename')";
+        $sql = "INSERT INTO pengaduan (mahasiswa_id, judul, isi, kategori, file, tgl) VALUES ('$id_mahasiswa', '$judul', '$isi', '$kategori', '$filename', '$tanggal')";
 
         // Eksekusi query
         if ($conn->query($sql) === TRUE) {
