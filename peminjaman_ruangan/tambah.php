@@ -12,6 +12,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-3">
+                        <label for="nim">NIM</label>
+                        <input type="text" id="nim" class="form-control" readonly
+                            value="<?php echo $data['nim'] ?>">
+                    </div>
+                    <div class="mb-3">
                         <label for="nama">Nama Peminjam</label>
                         <input type="text" id="nama" class="form-control" readonly
                             value="<?php echo $data['nama_mahasiswa'] ?>">
@@ -19,11 +24,13 @@
                     <div class="mb-3">
                         <label for="pj">Penanggung Jawab</label>
                         <select name="pj" id="pj" class="form-control" required>
-                            <option value="">-- Pilih Penanggung Jawab --</option>
-                            <option value="Mahasiswi">Mahasiswi</option>
-                            <option value="Dosen">Dosen</option>
-                            <option value="Tendik">Tendik</option>
-                            <option value="Staff">Staff</option>
+                        <option value="">-- Pilih Penanggung Jawab --</option>
+                        <?php
+                        $sql = mysqli_query($conn, "SELECT * FROM dosen");
+                        while($dosen = mysqli_fetch_assoc($sql)){
+                            echo "<option value='".$dosen['id_dosen']."'>".$dosen['nama_dosen']."</option>";
+                        }
+                        ?>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -46,11 +53,23 @@
                         <select name="ruangan_id" id="ruangan_id" class="form-control" required>
                             <option value="">-- Pilih Ruangan --</option>
                             <?php
-                    $ruangan_sql = mysqli_query($conn, "SELECT * FROM ruangan");
+                    $ruangan_sql = mysqli_query($conn, "SELECT * FROM ruangan JOIN gedung ON ruangan.gedung_id = gedung.id_gedung");
                     while($ruangan = mysqli_fetch_assoc($ruangan_sql)){
-                        echo "<option value='".$ruangan['id_ruangan']."'>".$ruangan['nama_ruangan']." - ".$ruangan['lokasi']."</option>";
+                        echo "<option value='".$ruangan['id_ruangan']."'>".$ruangan['nama_ruangan']." - ".$ruangan['nama_gedung']."</option>";
                     }
                     ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="biro">Biro</label>
+                        <select name="biro" id="biro" class="form-control" required>
+                        <option value="">-- Pilih Biro --</option>
+                        <?php
+                        $sql = mysqli_query($conn, "SELECT * FROM biro");
+                        while($biro = mysqli_fetch_assoc($sql)){
+                            echo "<option value='".$biro['id_biro']."'>".$biro['nama_biro']."</option>";
+                        }
+                        ?>
                         </select>
                     </div>
                 </div>
@@ -71,9 +90,10 @@
         $tanggal_peminjaman = $_POST['tanggal_peminjaman'];
         $tanggal_selesai = $_POST['tanggal_selesai'];
         $pj = $_POST['pj'];
+        $biro = $_POST['biro'];
 
         // Query insert data
-        $sql = "INSERT INTO peminjaman_ruangan (mahasiswa_id, ruangan_id, tujuan, tanggal_peminjaman, tanggal_selesai, pj) VALUES ('$mahasiswa_id', '$ruangan_id', '$tujuan', '$tanggal_peminjaman', '$tanggal_selesai', '$pj')";
+        $sql = "INSERT INTO peminjaman_ruangan (mahasiswa_id, ruangan_id, tujuan, tanggal_peminjaman, tanggal_selesai, dosen_id, biro_id) VALUES ('$mahasiswa_id', '$ruangan_id', '$tujuan', '$tanggal_peminjaman', '$tanggal_selesai', '$pj', '$biro')";
 
         // Eksekusi query
         if ($conn->query($sql) === TRUE) {

@@ -20,6 +20,7 @@
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Selesai</th>
                         <th>Penanggung Jawab</th>
+                        <th>Biro</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -28,23 +29,26 @@
                 <?php
                     $id_mahasiswa = $_SESSION['id'];
                     $no = 1;
-                    $sql = mysqli_query($conn, "SELECT * FROM peminjaman_ruangan LEFT JOIN ruangan ON peminjaman_ruangan.ruangan_id = ruangan.id_ruangan WHERE mahasiswa_id = '$id_mahasiswa' ORDER BY id_peminjaman_ruangan DESC");
+                    $sql = mysqli_query($conn, "SELECT * FROM peminjaman_ruangan LEFT JOIN ruangan ON peminjaman_ruangan.ruangan_id = ruangan.id_ruangan LEFT JOIN gedung ON ruangan.gedung_id = gedung.id_gedung LEFT JOIN biro ON peminjaman_ruangan.biro_id = biro.id_biro LEFT JOIN dosen ON dosen.id_dosen = peminjaman_ruangan.dosen_id WHERE mahasiswa_id = '$id_mahasiswa' ORDER BY id_peminjaman_ruangan DESC");
                     while($row = mysqli_fetch_assoc($sql)){
                 ?>
                 <tr>
                     <td><?php echo $no++ ?></td>
-                    <td><?php echo $row['nama_ruangan'] == '' ? '-' : $row['nama_ruangan'] .'-'. $row['lokasi']; ?></td>
+                    <td><?php echo $row['nama_ruangan'] == '' ? '-' : $row['nama_ruangan'] .'-'. $row['nama_gedung']; ?></td>
                     <td><?php echo $row['tujuan'] == '' ? '-' : $row['tujuan']; ?></td>
                     <td><?php echo formatDateIndonesia2($row['tanggal_peminjaman']) ?></td>
                     <td><?php echo formatDateIndonesia2($row['tanggal_selesai']) ?></td>
-                    <td><?php echo $row['pj'] == null ? '-' : $row['pj'] ?></td>
+                    <td><?php echo $row['nama_dosen'] == '' ? '-' : $row['nama_dosen']; ?></td>
+                    <td><?php echo $row['nama_biro'] == '' ? '-' : $row['nama_biro']; ?></td>
                     <td>
                         <?php if($row['status'] == "Pending"){ ?>
                             <span class="badge badge-warning"><?php echo $row['status'] ?></span>
                         <?php } elseif($row['status'] == "Disapproved") { ?>
                             <span class="badge badge-danger"><?php echo $row['status'] ?></span>
-                        <?php } else { ?>
+                        <?php } elseif($row['status'] == 'Approved') { ?>
                             <span class="badge badge-success"><?php echo $row['status'] ?></span>
+                        <?php }else{ ?>
+                            <span class="badge badge-primary"><?php echo $row['status'] ?></span>
                         <?php } ?>
                     </td>
                     <td>
@@ -66,6 +70,7 @@
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Selesai</th>
                         <th>Penanggung Jawab</th>
+                        <th>Biro</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -73,25 +78,28 @@
                 <tbody>
                 <?php
                     $no = 1;
-                    $sql = mysqli_query($conn, "SELECT * FROM peminjaman_ruangan LEFT JOIN ruangan ON peminjaman_ruangan.ruangan_id = ruangan.id_ruangan LEFT JOIN mahasiswa ON peminjaman_ruangan.mahasiswa_id = mahasiswa.id_mahasiswa ORDER BY peminjaman_ruangan.id_peminjaman_ruangan DESC");
+                    $sql = mysqli_query($conn, "SELECT * FROM peminjaman_ruangan LEFT JOIN ruangan ON peminjaman_ruangan.ruangan_id = ruangan.id_ruangan LEFT JOIN mahasiswa ON peminjaman_ruangan.mahasiswa_id = mahasiswa.id_mahasiswa LEFT JOIN gedung ON ruangan.gedung_id = gedung.id_gedung LEFT JOIN biro ON peminjaman_ruangan.biro_id = biro.id_biro LEFT JOIN dosen ON dosen.id_dosen = peminjaman_ruangan.dosen_id ORDER BY peminjaman_ruangan.id_peminjaman_ruangan DESC");
                     while($row = mysqli_fetch_assoc($sql)){
                 ?>
                 <tr>
                     <td><?php echo $no++ ?></td>
                     <td><?php echo $row['nim'] == '' ? '-' : $row['nim']; ?></td>
                     <td><?php echo $row['nama_mahasiswa'] == '' ? '-' : $row['nama_mahasiswa']; ?></td>
-                    <td><?php echo $row['nama_ruangan'] == '' ? '-' : $row['nama_ruangan'] .'-'. $row['lokasi'];?></td>
+                    <td><?php echo $row['nama_ruangan'] == '' ? '-' : $row['nama_ruangan'] .'-'. $row['nama_gedung'];?></td>
                     <td><?php echo $row['tujuan'] == '' ? '-' : $row['tujuan'];?></td>
                     <td><?php echo formatDateIndonesia2($row['tanggal_peminjaman']) ?></td>
                     <td><?php echo formatDateIndonesia2($row['tanggal_selesai']) ?></td>
-                    <td><?php echo $row['pj'] ?></td>
+                    <td><?php echo $row['nama_dosen'] == '' ? '-' : $row['nama_dosen']; ?></td>
+                    <td><?php echo $row['nama_biro'] == '' ? '-' : $row['nama_biro']; ?></td>
                     <td>
                         <?php if($row['status'] == "Pending"){ ?>
                             <span class="badge badge-warning"><?php echo $row['status'] ?></span>
                         <?php } elseif($row['status'] == "Disapproved") { ?>
                             <span class="badge badge-danger"><?php echo $row['status'] ?></span>
-                        <?php } else { ?>
+                        <?php } elseif($row['status'] == 'Approved') { ?>
                             <span class="badge badge-success"><?php echo $row['status'] ?></span>
+                        <?php }else{ ?>
+                            <span class="badge badge-primary"><?php echo $row['status'] ?></span>
                         <?php } ?>
                     </td>
                     <td>
