@@ -205,6 +205,18 @@ if (empty($_SESSION['username']) && empty($_SESSION['level'])) {
                                 case 'hapus-biro':
                                     include 'biro/hapus.php';
                                     break;
+                                case 'dosen':
+                                    include 'dosen/index.php';
+                                    break;
+                                case 'tambah-dosen':
+                                    include 'dosen/tambah.php';
+                                    break;
+                                case 'edit-dosen':
+                                    include 'dosen/edit.php';
+                                    break;
+                                case 'hapus-dosen':
+                                    include 'dosen/hapus.php';
+                                    break;
                                 default:
                                     include 'dashboard.php';
                                     break;
