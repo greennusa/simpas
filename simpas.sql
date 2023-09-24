@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 17, 2023 at 07:56 AM
+-- Generation Time: Sep 24, 2023 at 04:30 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.18
 
@@ -35,16 +35,72 @@ CREATE TABLE `barang` (
   `spesifikasi` varchar(100) NOT NULL,
   `lokasi` varchar(100) NOT NULL,
   `status_barang` varchar(50) NOT NULL,
-  `total` int(11) NOT NULL
+  `total` int(11) NOT NULL,
+  `satuan_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `barang`
 --
 
-INSERT INTO `barang` (`kd_barang`, `nama_barang`, `kategori_id`, `merek`, `spesifikasi`, `lokasi`, `status_barang`, `total`) VALUES
-('BRG-0001', 'asdf', 2, 'sfd', 'fas', 'fas', 'fas', 21),
-('BRG-0002', 'Komputer', 2, '1', 'a', '90', 'aman', 30);
+INSERT INTO `barang` (`kd_barang`, `nama_barang`, `kategori_id`, `merek`, `spesifikasi`, `lokasi`, `status_barang`, `total`, `satuan_id`) VALUES
+('BRG-0001', 'asdf', 2, 'sfd', 'fas', 'fas', 'fas', 21, 0),
+('BRG-0002', 'Komputer', 2, '1', 'a', '90', 'aman', 28, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `biro`
+--
+
+CREATE TABLE `biro` (
+  `id_biro` int(11) NOT NULL,
+  `nama_biro` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `biro`
+--
+
+INSERT INTO `biro` (`id_biro`, `nama_biro`) VALUES
+(2, 'Biro A');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dosen`
+--
+
+CREATE TABLE `dosen` (
+  `id_dosen` int(11) NOT NULL,
+  `nik` varchar(30) NOT NULL,
+  `nama_dosen` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `dosen`
+--
+
+INSERT INTO `dosen` (`id_dosen`, `nik`, `nama_dosen`) VALUES
+(2, '1234567890', 'Budi');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gedung`
+--
+
+CREATE TABLE `gedung` (
+  `id_gedung` int(11) NOT NULL,
+  `nama_gedung` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `gedung`
+--
+
+INSERT INTO `gedung` (`id_gedung`, `nama_gedung`) VALUES
+(2, 'Gedung A');
 
 -- --------------------------------------------------------
 
@@ -101,18 +157,18 @@ CREATE TABLE `peminjaman_barang` (
   `tanggal_peminjaman` date NOT NULL,
   `tanggal_selesai` date NOT NULL,
   `status` enum('Returned','Approved','Disapproved','Pending') DEFAULT 'Pending',
-  `pj` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `user_id` int(11) DEFAULT NULL
+  `user_id` int(11) DEFAULT NULL,
+  `dosen_id` int(11) NOT NULL,
+  `biro_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `peminjaman_barang`
 --
 
-INSERT INTO `peminjaman_barang` (`id_peminjaman_barang`, `mahasiswa_id`, `barang_kd`, `jumlah_barang`, `tujuan`, `tanggal_peminjaman`, `tanggal_selesai`, `status`, `pj`, `created_at`, `user_id`) VALUES
-(1, 2, 'BRG-0001', 3, '32', '2023-09-11', '2023-09-21', 'Returned', 'Pak Nanang', '2023-09-13 15:20:50', 1),
-(2, 2, 'BRG-0002', 2, 'acara', '2023-09-21', '2023-09-28', 'Pending', 'Tendik', '2023-09-16 18:15:33', NULL);
+INSERT INTO `peminjaman_barang` (`id_peminjaman_barang`, `mahasiswa_id`, `barang_kd`, `jumlah_barang`, `tujuan`, `tanggal_peminjaman`, `tanggal_selesai`, `status`, `created_at`, `user_id`, `dosen_id`, `biro_id`) VALUES
+(3, 2, 'BRG-0002', 2, 'acara', '2023-09-20', '2023-09-30', 'Returned', '2023-09-23 16:59:22', 1, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -127,20 +183,20 @@ CREATE TABLE `peminjaman_ruangan` (
   `tujuan` text NOT NULL,
   `tanggal_peminjaman` date NOT NULL,
   `tanggal_selesai` date NOT NULL,
-  `status` enum('Approved','Disapproved','Pending') NOT NULL DEFAULT 'Pending',
-  `pj` varchar(100) DEFAULT NULL,
+  `status` enum('Approved','Disapproved','Pending','Returned') NOT NULL DEFAULT 'Pending',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `user_id` int(11) DEFAULT NULL
+  `user_id` int(11) DEFAULT NULL,
+  `dosen_id` int(11) NOT NULL,
+  `biro_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `peminjaman_ruangan`
 --
 
-INSERT INTO `peminjaman_ruangan` (`id_peminjaman_ruangan`, `mahasiswa_id`, `ruangan_id`, `tujuan`, `tanggal_peminjaman`, `tanggal_selesai`, `status`, `pj`, `created_at`, `user_id`) VALUES
-(1, 1, 1, 'acara', '2023-09-14', '2023-09-14', 'Approved', 'Pak Budi', '2023-09-13 14:55:26', 2),
-(2, 2, 2, 'acara', '2023-09-05', '2023-09-16', 'Pending', 'Pak Budi', '2023-09-13 15:57:09', 2),
-(3, 2, 2, 'acara', '2023-09-19', '2023-09-22', 'Pending', 'Mahasiswi', '2023-09-16 18:14:55', NULL);
+INSERT INTO `peminjaman_ruangan` (`id_peminjaman_ruangan`, `mahasiswa_id`, `ruangan_id`, `tujuan`, `tanggal_peminjaman`, `tanggal_selesai`, `status`, `created_at`, `user_id`, `dosen_id`, `biro_id`) VALUES
+(4, 2, 4, 'acara', '2023-09-23', '2023-09-30', 'Returned', '2023-09-23 12:25:30', 1, 2, 2),
+(5, 2, 4, 'acara', '2023-09-12', '2023-09-28', 'Returned', '2023-09-23 16:11:59', 1, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -155,17 +211,18 @@ CREATE TABLE `pengaduan` (
   `isi` text NOT NULL,
   `kategori` varchar(100) NOT NULL,
   `file` text DEFAULT NULL,
-  `status` enum('Finish','Pending','On Progress') NOT NULL DEFAULT 'Pending',
+  `status` enum('Finish','Pending','On Progress','Rejected') NOT NULL DEFAULT 'Pending',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `user_id` int(11) DEFAULT NULL
+  `user_id` int(11) DEFAULT NULL,
+  `tgl` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pengaduan`
 --
 
-INSERT INTO `pengaduan` (`id_pengaduan`, `mahasiswa_id`, `judul`, `isi`, `kategori`, `file`, `status`, `created_at`, `user_id`) VALUES
-(4, 2, 'fsd', 'svzdx', 'Kebersihan', 'empty_box.png', 'Finish', '2023-09-17 05:49:38', 1);
+INSERT INTO `pengaduan` (`id_pengaduan`, `mahasiswa_id`, `judul`, `isi`, `kategori`, `file`, `status`, `created_at`, `user_id`, `tgl`) VALUES
+(7, 2, 'sfa', 'asfd', 'Kenyamanan', '', 'Rejected', '2023-09-23 17:13:40', 1, '2023-09-08');
 
 -- --------------------------------------------------------
 
@@ -176,15 +233,26 @@ INSERT INTO `pengaduan` (`id_pengaduan`, `mahasiswa_id`, `judul`, `isi`, `katego
 CREATE TABLE `ruangan` (
   `id_ruangan` int(11) NOT NULL,
   `nama_ruangan` varchar(100) NOT NULL,
-  `lokasi` varchar(50) NOT NULL
+  `gedung_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ruangan`
 --
 
-INSERT INTO `ruangan` (`id_ruangan`, `nama_ruangan`, `lokasi`) VALUES
-(2, 'fsd', 'sdf');
+INSERT INTO `ruangan` (`id_ruangan`, `nama_ruangan`, `gedung_id`) VALUES
+(4, 'Lab Komputer', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `satuan`
+--
+
+CREATE TABLE `satuan` (
+  `id_satuan` int(11) NOT NULL,
+  `nama_satuan` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -219,6 +287,24 @@ ALTER TABLE `barang`
   ADD KEY `kategori_id` (`kategori_id`);
 
 --
+-- Indexes for table `biro`
+--
+ALTER TABLE `biro`
+  ADD PRIMARY KEY (`id_biro`);
+
+--
+-- Indexes for table `dosen`
+--
+ALTER TABLE `dosen`
+  ADD PRIMARY KEY (`id_dosen`);
+
+--
+-- Indexes for table `gedung`
+--
+ALTER TABLE `gedung`
+  ADD PRIMARY KEY (`id_gedung`);
+
+--
 -- Indexes for table `kategori`
 --
 ALTER TABLE `kategori`
@@ -239,7 +325,9 @@ ALTER TABLE `peminjaman_barang`
   ADD PRIMARY KEY (`id_peminjaman_barang`),
   ADD KEY `mahasiswa_id` (`mahasiswa_id`),
   ADD KEY `barang_kd` (`barang_kd`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `dosen_id` (`dosen_id`),
+  ADD KEY `biro_id` (`biro_id`);
 
 --
 -- Indexes for table `peminjaman_ruangan`
@@ -248,7 +336,9 @@ ALTER TABLE `peminjaman_ruangan`
   ADD PRIMARY KEY (`id_peminjaman_ruangan`),
   ADD KEY `mahasiswa_id` (`mahasiswa_id`),
   ADD KEY `ruangan_id` (`ruangan_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `dosen_id` (`dosen_id`),
+  ADD KEY `biro_id` (`biro_id`);
 
 --
 -- Indexes for table `pengaduan`
@@ -262,7 +352,14 @@ ALTER TABLE `pengaduan`
 -- Indexes for table `ruangan`
 --
 ALTER TABLE `ruangan`
-  ADD PRIMARY KEY (`id_ruangan`);
+  ADD PRIMARY KEY (`id_ruangan`),
+  ADD KEY `gedung_id` (`gedung_id`);
+
+--
+-- Indexes for table `satuan`
+--
+ALTER TABLE `satuan`
+  ADD PRIMARY KEY (`id_satuan`);
 
 --
 -- Indexes for table `user`
@@ -273,6 +370,24 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `biro`
+--
+ALTER TABLE `biro`
+  MODIFY `id_biro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `dosen`
+--
+ALTER TABLE `dosen`
+  MODIFY `id_dosen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `gedung`
+--
+ALTER TABLE `gedung`
+  MODIFY `id_gedung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -290,25 +405,31 @@ ALTER TABLE `mahasiswa`
 -- AUTO_INCREMENT for table `peminjaman_barang`
 --
 ALTER TABLE `peminjaman_barang`
-  MODIFY `id_peminjaman_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_peminjaman_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `peminjaman_ruangan`
 --
 ALTER TABLE `peminjaman_ruangan`
-  MODIFY `id_peminjaman_ruangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_peminjaman_ruangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  MODIFY `id_pengaduan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pengaduan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `ruangan`
 --
 ALTER TABLE `ruangan`
-  MODIFY `id_ruangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_ruangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `satuan`
+--
+ALTER TABLE `satuan`
+  MODIFY `id_satuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`
