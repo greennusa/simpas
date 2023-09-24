@@ -4,6 +4,8 @@
     <h1 class="h3 mb-0 text-gray-800">Data Pengaduan</h1>
     <?php if($_SESSION['level'] == 'user') : ?>
         <a href="admin.php?page=tambah-pengaduan" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Tambah Data</a>
+    <?php else: ?>
+        <a href="pengaduan/print_index.php" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm"> Export PDF</a>
     <?php endif ?>
 </div>
 
@@ -20,6 +22,7 @@
                         <th>Isi</th>
                         <th>Tanggal Kejadian</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,6 +55,7 @@
                             <span class="badge badge-success"><?php echo $row['status'] ?></span>
                         <?php } ?>
                     </td>
+                    <td><a class="btn btn-sm btn-outline-success" target="_blank" href="pengaduan/print_view.php?id=<?php echo $row['id_pengaduan'] ?>">Print</a></td>
                 </tr>
                 <?php } ?>
                 </tbody>
@@ -109,8 +113,9 @@
                             <button type="submit" class="btn btn-outline-danger btn-sm" name="tolak" onclick="return confirm('Apakah Anda yakin ingin menolak laporan ini?')">Tolak Laporan</button>
                         </form>
                         <?php else: ?>
-                            -
+                            
                         <?php endif ?>
+                        <a class="btn btn-sm btn-outline-success" target="_blank" href="pengaduan/print_view.php?id=<?php echo $row['id_pengaduan'] ?>">Print</a>
                     </td>
                 </tr>
                 <?php } ?>

@@ -4,6 +4,8 @@
     <h1 class="h3 mb-0 text-gray-800">Data Peminjaman Barang</h1>
     <?php if($_SESSION['level'] == 'user') : ?>
         <a href="admin.php?page=tambah-peminjaman-barang" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Tambah Data</a>
+    <?php else: ?>
+        <a href="peminjaman_barang/print_index.php" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm"> Export PDF</a>
     <?php endif ?>
 </div>
 
@@ -55,6 +57,7 @@
                     </td>
                     <td>
                         <a class="btn btn-sm btn-primary" href="admin.php?page=view-peminjaman-barang&id=<?php echo $row['id_peminjaman_barang'] ?>">View</a>
+                        <a class="btn btn-sm btn-outline-success" target="_blank" href="peminjaman_barang/print_view.php?id=<?php echo $row['id_peminjaman_barang'] ?>">Print</a>
                     </td>
                 </tr>
                 <?php } ?>
@@ -108,6 +111,7 @@
                     </td>
                     <td>
                         <a class="btn btn-sm btn-primary" href="admin.php?page=view-peminjaman-barang&id=<?php echo $row['id_peminjaman_barang'] ?>">View</a>
+                        <a class="btn btn-sm btn-outline-success" target="_blank" href="peminjaman_barang/print_view.php?id=<?php echo $row['id_peminjaman_barang'] ?>">Print</a>
                     </td>
                 </tr>
                 <?php } ?>
