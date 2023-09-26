@@ -39,8 +39,16 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="merek">Merek</label>
-                    <input type="text" name="merek" id="merek" class="form-control" required>
+                    <label for="merek_id">Merek</label>
+                    <select name="merek_id" id="merek_id" class="form-control" required>
+                        <option value="">-- Pilih Merek --</option>
+                    <?php
+                    $merek_sql = mysqli_query($conn, "SELECT * FROM merek");
+                    while($merek = mysqli_fetch_assoc($merek_sql)){
+                        echo "<option value='".$merek['id_merek']."'>".$merek['nama_merek']."</option>";
+                    }
+                    ?>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="spesifikasi">Spesifikasi</label>
@@ -70,6 +78,7 @@
         $kd_barang = $_POST['kd_barang'];
         $nama_barang = $_POST['nama_barang'];
         $kategori_id = $_POST['kategori_id'];
+        $merek_id = $_POST['merek_id'];
         $merek = $_POST['merek'];
         $spesifikasi = $_POST['spesifikasi'];
         $lokasi = $_POST['lokasi'];
@@ -77,7 +86,7 @@
         $total = $_POST['total'];
 
         // Query insert data
-        $sql = "INSERT INTO barang (kd_barang, nama_barang, kategori_id, merek, spesifikasi, lokasi, status_barang, total) VALUES ('$kd_barang', '$nama_barang', '$kategori_id', '$merek', '$spesifikasi', '$lokasi', '$status', '$total')";
+        $sql = "INSERT INTO barang (kd_barang, nama_barang, kategori_id, spesifikasi, lokasi, status_barang, total, merek_id) VALUES ('$kd_barang', '$nama_barang', '$kategori_id', '$spesifikasi', '$lokasi', '$status', '$total', '$merek_id')";
 
         // Eksekusi query
         if(mysqli_query($conn, $sql)){

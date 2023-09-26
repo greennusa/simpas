@@ -25,7 +25,7 @@
                 <tbody>
                 <?php
                     $no = 1;
-                    $sql = mysqli_query($conn, "SELECT barang.*, kategori.nama_kategori FROM barang LEFT JOIN kategori ON barang.kategori_id = kategori.id_kategori");
+                    $sql = mysqli_query($conn, "SELECT * FROM barang LEFT JOIN kategori ON barang.kategori_id = kategori.id_kategori LEFT JOIN merek ON barang.merek_id = merek.id_merek");
                     while($row = mysqli_fetch_assoc($sql)){
                 ?>
                 <tr>
@@ -33,7 +33,7 @@
                     <td><?php echo $row['kd_barang'] ?></td>
                     <td><?php echo $row['nama_barang'] ?></td>
                     <td><?php echo $row['nama_kategori'] == '' ? '-' : $row['nama_kategori']; ?></td>
-                    <td><?php echo $row['merek'] ?></td>
+                    <td><?php echo $row['nama_merek'] == '' ? '-' : $row['nama_merek']; ?></td>
                     <td><?php echo $row['spesifikasi'] ?></td>
                     <td><?php echo $row['lokasi'] ?></td>
                     <td><?php echo $row['status_barang'] ?></td>

@@ -32,8 +32,16 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="merek">Merek</label>
-                    <input type="text" name="merek" id="merek" class="form-control" value="<?php echo $data['merek'] ?>">
+                    <label for="merek_id">Merek</label>
+                    <select name="merek_id" id="merek_id" class="form-control" required>
+                        <?php
+                        $merek_sql = mysqli_query($conn, "SELECT * FROM merek");
+                        while($merek = mysqli_fetch_assoc($merek_sql)){
+                            $selected = ($merek['id_merek'] == $data['merek_id']) ? "selected" : "";
+                            echo "<option value='".$merek['id_merek']."' $selected>".$merek['nama_merek']."</option>";
+                        }
+                        ?>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="spesifikasi">Spesifikasi</label>
@@ -63,14 +71,14 @@
         $kd_barang = $_POST['kd_barang'];
         $nama_barang = $_POST['nama_barang'];
         $kategori_id = $_POST['kategori_id'];
-        $merek = $_POST['merek'];
+        $merek = $_POST['merek_id'];
         $spesifikasi = $_POST['spesifikasi'];
         $lokasi = $_POST['lokasi'];
         $status = $_POST['status'];
         $total = $_POST['total'];
 
         // Melakukan update data
-        $sql = "UPDATE barang SET nama_barang='$nama_barang', kategori_id='$kategori_id', merek='$merek', spesifikasi='$spesifikasi', lokasi='$lokasi', status_barang='$status', total='$total' WHERE kd_barang='$kd_barang'";
+        $sql = "UPDATE barang SET nama_barang='$nama_barang', kategori_id='$kategori_id', merek_id='$merek', spesifikasi='$spesifikasi', lokasi='$lokasi', status_barang='$status', total='$total' WHERE kd_barang='$kd_barang'";
 
         // Eksekusi query
         if(mysqli_query($conn, $sql)){

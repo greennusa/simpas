@@ -37,6 +37,7 @@
                 <a class="collapse-item" href="admin.php?page=satuan">Satuan</a>
                 <a class="collapse-item" href="admin.php?page=gedung">Gedung</a>
                 <a class="collapse-item" href="admin.php?page=biro">Biro</a>
+                <a class="collapse-item" href="admin.php?page=merek">Merek</a>
                 <a class="collapse-item" href="admin.php?page=kategori">Kategori</a>
                 <a class="collapse-item" href="admin.php?page=barang">Barang</a>
                 <a class="collapse-item" href="admin.php?page=ruangan">Ruangan</a>
