@@ -55,7 +55,7 @@ INSERT INTO `barang` (`kd_barang`, `nama_barang`, `kategori_id`, `spesifikasi`, 
 CREATE TABLE `biro` (
   `id_biro` int NOT NULL,
   `nama_biro` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `biro`
@@ -74,7 +74,7 @@ CREATE TABLE `dosen` (
   `id_dosen` int NOT NULL,
   `nik` varchar(30) NOT NULL,
   `nama_dosen` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `dosen`
@@ -92,7 +92,7 @@ INSERT INTO `dosen` (`id_dosen`, `nik`, `nama_dosen`) VALUES
 CREATE TABLE `gedung` (
   `id_gedung` int NOT NULL,
   `nama_gedung` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `gedung`
@@ -150,7 +150,7 @@ INSERT INTO `mahasiswa` (`id_mahasiswa`, `nama_mahasiswa`, `nim`, `semester`, `p
 CREATE TABLE `merek` (
   `id_merek` int NOT NULL,
   `nama_merek` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `merek`
@@ -273,7 +273,7 @@ INSERT INTO `ruangan` (`id_ruangan`, `nama_ruangan`, `gedung_id`) VALUES
 CREATE TABLE `satuan` (
   `id_satuan` int NOT NULL,
   `nama_satuan` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
