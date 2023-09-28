@@ -46,9 +46,9 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="ruangan_id">Ruangan</label>
+                        <label for="ruangan_id">Lokasi</label>
                         <select name="ruangan_id" id="ruangan_id" class="form-control" required>
-                            <option value="">-- Pilih Ruangan --</option>
+                            <option value="">-- Pilih Lokasi --</option>
                             <?php
                     $ruangan_sql = mysqli_query($conn, "SELECT * FROM ruangan JOIN gedung ON ruangan.gedung_id = gedung.id_gedung");
                     while($ruangan = mysqli_fetch_assoc($ruangan_sql)){

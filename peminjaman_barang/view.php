@@ -69,7 +69,7 @@
                     <td><?php echo $data['nama_biro'] == '' ? '-' : $data['nama_biro'];?></td>
                 </tr>
                 <tr>
-                    <th>Ruangan</th>
+                    <th>Lokasi</th>
                     <th> : </th>
                     <td><?php echo $data['nama_ruangan'] == '' ? '-' : $data['nama_ruangan'] .' - '. $data['nama_gedung']; ?></td>
                 </tr>
