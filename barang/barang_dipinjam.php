@@ -15,14 +15,13 @@
                         <th>Tujuan</th>
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Selesai</th>
-                        <th>Penanggung Jawab</th>
                         <th>Jumlah Barang Dipinjam</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php
                     $no = 1;
-                    $sql = mysqli_query($conn, "SELECT b.nama_barang, b.kd_barang, pb.jumlah_barang, pb.tanggal_peminjaman, pb.tanggal_selesai, pb.tujuan, pb.pj
+                    $sql = mysqli_query($conn, "SELECT b.nama_barang, b.kd_barang, pb.jumlah_barang, pb.tanggal_peminjaman, pb.tanggal_selesai, pb.tujuan
                     FROM peminjaman_barang pb
                     INNER JOIN barang b ON pb.barang_kd = b.kd_barang
                     WHERE pb.status = 'Approved' AND pb.tanggal_selesai > CURDATE()");
@@ -35,7 +34,6 @@
                     <td><?php echo $row['tujuan'] ?></td>
                     <td><?php echo $row['tanggal_peminjaman'] ?></td>
                     <td><?php echo $row['tanggal_selesai'] ?></td>
-                    <td><?php echo $row['pj'] ?></td>
                     <td><?php echo $row['jumlah_barang'] ?></td>
                 </tr>
                 <?php } ?>

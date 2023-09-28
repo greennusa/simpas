@@ -5,7 +5,11 @@
     <?php if($_SESSION['level'] == 'user') : ?>
         <a href="admin.php?page=tambah-peminjaman-barang" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Tambah Data</a>
     <?php else: ?>
-        <a href="peminjaman_barang/print_index.php" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm"> Export PDF</a>
+        <div>
+            <a href="peminjaman_barang/print_index.php" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm"> Export PDF</a>
+            <a href="peminjaman_barang/excel_index.php" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm mx-2"> Export Excel</a>
+            <a href="peminjaman_barang/word_index.php" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm"> Export Word</a>
+        </div>
     <?php endif ?>
 </div>
 
@@ -57,7 +61,7 @@
                     </td>
                     <td>
                         <a class="btn btn-sm btn-primary" href="admin.php?page=view-peminjaman-barang&id=<?php echo $row['id_peminjaman_barang'] ?>">View</a>
-                        <a class="btn btn-sm btn-outline-success" target="_blank" href="peminjaman_barang/print_view.php?id=<?php echo $row['id_peminjaman_barang'] ?>">Print</a>
+                        <!-- <a class="btn btn-sm btn-outline-success" target="_blank" href="peminjaman_barang/print_view.php?id=<?php echo $row['id_peminjaman_barang'] ?>">Print</a> -->
                     </td>
                 </tr>
                 <?php } ?>
@@ -111,7 +115,7 @@
                     </td>
                     <td>
                         <a class="btn btn-sm btn-primary" href="admin.php?page=view-peminjaman-barang&id=<?php echo $row['id_peminjaman_barang'] ?>">View</a>
-                        <a class="btn btn-sm btn-outline-success" target="_blank" href="peminjaman_barang/print_view.php?id=<?php echo $row['id_peminjaman_barang'] ?>">Print</a>
+                        <!-- <a class="btn btn-sm btn-outline-success" target="_blank" href="peminjaman_barang/print_view.php?id=<?php echo $row['id_peminjaman_barang'] ?>">Print</a> -->
                     </td>
                 </tr>
                 <?php } ?>

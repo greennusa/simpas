@@ -45,6 +45,18 @@
                         ?>
                         </select>
                     </div>
+                    <div class="mb-3">
+                        <label for="ruangan_id">Ruangan</label>
+                        <select name="ruangan_id" id="ruangan_id" class="form-control" required>
+                            <option value="">-- Pilih Ruangan --</option>
+                            <?php
+                    $ruangan_sql = mysqli_query($conn, "SELECT * FROM ruangan JOIN gedung ON ruangan.gedung_id = gedung.id_gedung");
+                    while($ruangan = mysqli_fetch_assoc($ruangan_sql)){
+                        echo "<option value='".$ruangan['id_ruangan']."'>".$ruangan['nama_ruangan']." - ".$ruangan['nama_gedung']."</option>";
+                    }
+                    ?>
+                        </select>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
@@ -97,9 +109,10 @@
         $tanggal_selesai = $_POST['tanggal_selesai'];
         $pj = $_POST['pj'];
         $biro = $_POST['biro'];
+        $ruangan = $_POST['ruangan_id'];
 
         // Query insert data
-        $sql = "INSERT INTO peminjaman_barang (mahasiswa_id, barang_kd, jumlah_barang, tujuan, tanggal_peminjaman, tanggal_selesai, dosen_id, biro_id) VALUES ('$mahasiswa_id', '$barang_kd', '$jumlah_barang', '$tujuan', '$tanggal_peminjaman', '$tanggal_selesai', '$pj', '$biro')";
+        $sql = "INSERT INTO peminjaman_barang (mahasiswa_id, barang_kd, jumlah_barang, tujuan, tanggal_peminjaman, tanggal_selesai, dosen_id, biro_id, ruangan_id) VALUES ('$mahasiswa_id', '$barang_kd', '$jumlah_barang', '$tujuan', '$tanggal_peminjaman', '$tanggal_selesai', '$pj', '$biro', '$ruangan')";
 
         // Eksekusi query
         if ($conn->query($sql) === TRUE) {

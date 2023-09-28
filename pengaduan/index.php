@@ -5,7 +5,11 @@
     <?php if($_SESSION['level'] == 'user') : ?>
         <a href="admin.php?page=tambah-pengaduan" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Tambah Data</a>
     <?php else: ?>
-        <a href="pengaduan/print_index.php" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm"> Export PDF</a>
+        <div>
+            <a href="pengaduan/print_index.php" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm"> Export PDF</a>
+            <a href="pengaduan/excel_index.php" target="_blank" class="mx-2 d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm"> Export Excel</a>
+            <a href="pengaduan/word_index.php" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm"> Export Word</a>
+        </div>
     <?php endif ?>
 </div>
 
@@ -55,7 +59,7 @@
                             <span class="badge badge-success"><?php echo $row['status'] ?></span>
                         <?php } ?>
                     </td>
-                    <td><a class="btn btn-sm btn-outline-success" target="_blank" href="pengaduan/print_view.php?id=<?php echo $row['id_pengaduan'] ?>">Print</a></td>
+                    <!-- <td><a class="btn btn-sm btn-outline-success" target="_blank" href="pengaduan/print_view.php?id=<?php echo $row['id_pengaduan'] ?>">Print</a></td> -->
                 </tr>
                 <?php } ?>
                 </tbody>
@@ -115,7 +119,7 @@
                         <?php else: ?>
                             
                         <?php endif ?>
-                        <a class="btn btn-sm btn-outline-success" target="_blank" href="pengaduan/print_view.php?id=<?php echo $row['id_pengaduan'] ?>">Print</a>
+                        <!-- <a class="btn btn-sm btn-outline-success" target="_blank" href="pengaduan/print_view.php?id=<?php echo $row['id_pengaduan'] ?>">Print</a> -->
                     </td>
                 </tr>
                 <?php } ?>

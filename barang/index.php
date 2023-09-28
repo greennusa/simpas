@@ -1,7 +1,9 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Data Barang</h1>
+    <?php if($_SESSION['level'] == 'Admin'): ?>
     <a href="admin.php?page=tambah-barang" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah Data</a>
+    <?php endif; ?>
 </div>
 
 <div class="card shadow mb-4">
@@ -19,7 +21,9 @@
                         <th>Lokasi</th>
                         <th>Status</th>
                         <th>Total</th>
+                        <?php if($_SESSION['level'] == 'Admin'): ?>
                         <th>Aksi</th>
+                        <?php endif ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,10 +42,13 @@
                     <td><?php echo $row['lokasi'] ?></td>
                     <td><?php echo $row['status_barang'] ?></td>
                     <td><?php echo $row['total'] ?></td>
+                    <?php if($_SESSION['level'] == 'Admin'): ?>
+
                     <td>
                         <a class="btn btn-sm btn-warning" href="admin.php?page=edit-barang&id=<?php echo $row['kd_barang'] ?>">Edit</a>
                         <a class="btn btn-sm btn-danger" href="admin.php?page=hapus-barang&id=<?php echo $row['kd_barang'] ?>">Hapus</a>
                     </td>
+                    <?php endif; ?>
                 </tr>
                 <?php } ?>
                 </tbody>

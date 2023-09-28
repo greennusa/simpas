@@ -14,7 +14,7 @@ include '../date_formatter.php';
 </head>
 
 <body>
-    <h3 class="text-center mb-4">Data Pengaduan</h3>
+    <h3 class="text-center mb-4" style="margin-top: 110px;">Data Pengaduan</h3>
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>

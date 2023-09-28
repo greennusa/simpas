@@ -8,7 +8,7 @@
             <?php
             // Mengambil data berdasarkan ID peminjaman_barang
             $id_peminjaman_barang = $_GET['id'];
-            $sql = "SELECT * FROM peminjaman_barang LEFT JOIN barang ON peminjaman_barang.barang_kd = barang.kd_barang LEFT JOIN mahasiswa ON peminjaman_barang.mahasiswa_id = mahasiswa.id_mahasiswa LEFT JOIN biro ON peminjaman_barang.biro_id = biro.id_biro LEFT JOIN dosen ON dosen.id_dosen = peminjaman_barang.dosen_id LEFT JOIN user ON peminjaman_barang.user_id = user.id_user WHERE id_peminjaman_barang='$id_peminjaman_barang'";
+            $sql = "SELECT * FROM peminjaman_barang LEFT JOIN barang ON peminjaman_barang.barang_kd = barang.kd_barang LEFT JOIN mahasiswa ON peminjaman_barang.mahasiswa_id = mahasiswa.id_mahasiswa LEFT JOIN biro ON peminjaman_barang.biro_id = biro.id_biro LEFT JOIN dosen ON dosen.id_dosen = peminjaman_barang.dosen_id LEFT JOIN ruangan ON ruangan.id_ruangan = peminjaman_barang.ruangan_id LEFT JOIN gedung ON gedung.id_gedung = ruangan.gedung_id LEFT JOIN user ON peminjaman_barang.user_id = user.id_user WHERE id_peminjaman_barang='$id_peminjaman_barang'";
             $result = $conn->query($sql);
             $data = $result->fetch_assoc();
             ?>
@@ -67,6 +67,11 @@
                     <th>Biro</th>
                     <th> : </th>
                     <td><?php echo $data['nama_biro'] == '' ? '-' : $data['nama_biro'];?></td>
+                </tr>
+                <tr>
+                    <th>Ruangan</th>
+                    <th> : </th>
+                    <td><?php echo $data['nama_ruangan'] == '' ? '-' : $data['nama_ruangan'] .' - '. $data['nama_gedung']; ?></td>
                 </tr>
                 <tr>
                     <th>Status</th>
