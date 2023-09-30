@@ -1,5 +1,5 @@
 <!-- Page Heading -->
-<h1 class="h3 mb-4 text-gray-800">Edit Data Biro</h1>
+<h1 class="h3 mb-4 text-gray-800">Edit Data Satuan Kerja</h1>
 
 <div class="card shadow mb-4">
     <div class="card-body">
@@ -14,7 +14,7 @@
 
             <form action="" method="POST">
                 <div class="mb-3">
-                    <label for="nama">Nama Biro</label>
+                    <label for="nama">Nama Satuan Kerja</label>
                     <input type="text" name="nama" id="nama" class="form-control" value="<?php echo $data['nama_biro']; ?>" required autofocus>
                 </div>
                 <input type="hidden" name="id_biro" value="<?php echo $id_biro; ?>">
@@ -36,7 +36,7 @@
         // Eksekusi query
         if ($conn->query($sql) === TRUE) {
             echo "<script>
-            window.location.href='admin.php?page=biro&edit=true';
+            window.location.href='admin.php?page=satuan-kerja&edit=true';
             </script>";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;

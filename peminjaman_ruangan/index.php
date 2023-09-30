@@ -26,7 +26,7 @@
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Selesai</th>
                         <th>Penanggung Jawab</th>
-                        <th>Biro</th>
+                        <th>Satuan Kerja</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -77,7 +77,7 @@
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Selesai</th>
                         <th>Penanggung Jawab</th>
-                        <th>Biro</th>
+                        <th>Satuan Kerja</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>

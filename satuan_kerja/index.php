@@ -1,7 +1,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Data Biro</h1>
-    <a href="admin.php?page=tambah-biro" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Tambah Data</a>
+    <h1 class="h3 mb-0 text-gray-800">Data Satuan Kerja</h1>
+    <a href="admin.php?page=tambah-satuan-kerja" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Tambah Data</a>
 </div>
 
 <div class="card shadow mb-4">
@@ -11,7 +11,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Biro</th>
+                        <th>Nama Satuan Kerja</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -25,8 +25,8 @@
                     <td><?php echo $no++ ?></td>
                     <td><?php echo $row['nama_biro'] ?></td>
                     <td>
-                        <a class="btn btn-sm btn-warning" href="admin.php?page=edit-biro&id=<?php echo $row['id_biro'] ?>">Edit</a>
-                        <a class="btn btn-sm btn-danger" href="admin.php?page=hapus-biro&id=<?php echo $row['id_biro'] ?>">Hapus</a>
+                        <a class="btn btn-sm btn-warning" href="admin.php?page=edit-satuan-kerja&id=<?php echo $row['id_biro'] ?>">Edit</a>
+                        <a class="btn btn-sm btn-danger" href="admin.php?page=hapus-satuan-kerja&id=<?php echo $row['id_biro'] ?>">Hapus</a>
                     </td>
                 </tr>
                 <?php } ?>

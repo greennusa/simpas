@@ -64,7 +64,7 @@
                     <td><?php echo $data['nama_dosen'] == '' ? '-' : $data['nama_dosen'];?></td>
                 </tr>
                 <tr>
-                    <th>Biro</th>
+                    <th>Satuan Kerja</th>
                     <th> : </th>
                     <td><?php echo $data['nama_biro'] == '' ? '-' : $data['nama_biro'];?></td>
                 </tr>

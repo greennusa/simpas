@@ -11,7 +11,7 @@
         // Eksekusi query
         if ($conn->query($sql) === TRUE) {
             echo "<script>
-            window.location.href='admin.php?page=biro&delete=true';
+            window.location.href='admin.php?page=satuan-kerja&delete=true';
             </script>";
         } else {
             echo "<script>
@@ -19,12 +19,12 @@
                 icon: 'error',
                 title: 'Gagal!',
                 text: 'Hapus data gagal. Error: ". $conn->error . "',
-                footer: '<a href=admin.php?page=biro>Kembali</a>',
+                footer: '<a href=admin.php?page=satuan-kerja>Kembali</a>',
                 showConfirmButton: false,
                 timer: 5000, // Dialog akan menutup setelah 5 detik
                 didClose: () => {
                     // Redirect setelah dialog menutup
-                    window.location.href = 'admin.php?page=biro';
+                    window.location.href = 'admin.php?page=satuan-kerja';
                 }
             });
         </script>";

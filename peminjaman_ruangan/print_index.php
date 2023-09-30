@@ -26,7 +26,7 @@ include '../date_formatter.php';
                 <th>Tanggal Peminjaman</th>
                 <th>Tanggal Selesai</th>
                 <th>Penanggung Jawab</th>
-                <th>Biro</th>
+                <th>Satuan Kerja</th>
                 <th>Status</th>
             </tr>
         </thead>

@@ -19,7 +19,7 @@ $cellStyleCentered = ['align' => 'center'];
 $cellStyleBold = ['bold' => true];
 
 // Add table headers
-$headers = ["No", "NIM", "Nama", "Barang", "Jumlah", "Tujuan", "Tanggal Peminjaman", "Tanggal Selesai", "Penanggung Jawab", "Biro", "Status"];
+$headers = ["No", "NIM", "Nama", "Barang", "Jumlah", "Tujuan", "Tanggal Peminjaman", "Tanggal Selesai", "Penanggung Jawab", "Satuan Kerja", "Status"];
 foreach ($headers as $header) {
     $table->addCell(500, $cellStyle)->addText($header, $cellStyleBold, $cellStyleCentered);
 }

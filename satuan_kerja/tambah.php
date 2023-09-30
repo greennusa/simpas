@@ -1,12 +1,12 @@
 <!-- Page Heading -->
-<h1 class="h3 mb-4 text-gray-800">Tambah Data Biro</h1>
+<h1 class="h3 mb-4 text-gray-800">Tambah Data Satuan Kerja</h1>
 
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="col-md-6">
             <form action="" method="POST">
                 <div class="mb-3">
-                    <label for="nama">Nama Biro</label>
+                    <label for="nama">Nama Satuan Kerja</label>
                     <input type="text" name="nama" id="nama" class="form-control" required autofocus>
                 </div>
                 <button type="submit" class="btn btn-primary" name="tambah">Tambah</button>
@@ -26,7 +26,7 @@
         // Eksekusi query
         if ($conn->query($sql) === TRUE) {
             echo "<script>
-            window.location.href='admin.php?page=biro&tambah=true';
+            window.location.href='admin.php?page=satuan-kerja&tambah=true';
             </script>";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;

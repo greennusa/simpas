@@ -10,7 +10,7 @@ $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
 
 // Define the table headers
-$headers = ["No", "NIM", "Nama", "Barang", "Jumlah", "Tujuan", "Tanggal Peminjaman", "Tanggal Selesai", "Penanggung Jawab", "Biro", "Status"];
+$headers = ["No", "NIM", "Nama", "Barang", "Jumlah", "Tujuan", "Tanggal Peminjaman", "Tanggal Selesai", "Penanggung Jawab", "Satuan Kerja", "Status"];
 
 // Set headers in the first row
 $columnIndex = 1;

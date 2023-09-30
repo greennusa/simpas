@@ -193,17 +193,17 @@ if (empty($_SESSION['username']) && empty($_SESSION['level'])) {
                                 case 'hapus-gedung':
                                     include 'gedung/hapus.php';
                                     break;
-                                case 'biro':
-                                    include 'biro/index.php';
+                                case 'satuan-kerja':
+                                    include 'satuan_kerja/index.php';
                                     break;
-                                case 'tambah-biro':
-                                    include 'biro/tambah.php';
+                                case 'tambah-satuan-kerja':
+                                    include 'satuan_kerja/tambah.php';
                                     break;
-                                case 'edit-biro':
-                                    include 'biro/edit.php';
+                                case 'edit-satuan-kerja':
+                                    include 'satuan_kerja/edit.php';
                                     break;
-                                case 'hapus-biro':
-                                    include 'biro/hapus.php';
+                                case 'hapus-satuan-kerja':
+                                    include 'satuan_kerja/hapus.php';
                                     break;
                                 case 'dosen':
                                     include 'dosen/index.php';

@@ -34,9 +34,9 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="biro">Biro</label>
+                        <label for="biro">Satuan Kerja</label>
                         <select name="biro" id="biro" class="form-control" required>
-                        <option value="">-- Pilih Biro --</option>
+                        <option value="">-- Pilih Satuan Kerja --</option>
                         <?php
                         $sql = mysqli_query($conn, "SELECT * FROM biro");
                         while($biro = mysqli_fetch_assoc($sql)){
