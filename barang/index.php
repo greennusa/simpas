@@ -1,7 +1,6 @@
-<!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Data Barang</h1>
-    <?php if($_SESSION['level'] == 'Admin'): ?>
+    <?php if($_SESSION['level'] == 'admin'): ?>
     <a href="admin.php?page=tambah-barang" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah Data</a>
     <?php endif; ?>
 </div>
@@ -21,7 +20,8 @@
                         <th>Lokasi</th>
                         <th>Status</th>
                         <th>Total</th>
-                        <?php if($_SESSION['level'] == 'Admin'): ?>
+                        <th>Satuan</th>
+                        <?php if($_SESSION['level'] == 'admin'): ?>
                         <th>Aksi</th>
                         <?php endif ?>
                     </tr>
@@ -29,7 +29,7 @@
                 <tbody>
                 <?php
                     $no = 1;
-                    $sql = mysqli_query($conn, "SELECT * FROM barang LEFT JOIN kategori ON barang.kategori_id = kategori.id_kategori LEFT JOIN merek ON barang.merek_id = merek.id_merek");
+                    $sql = mysqli_query($conn, "SELECT * FROM barang LEFT JOIN kategori ON barang.kategori_id = kategori.id_kategori LEFT JOIN merek ON barang.merek_id = merek.id_merek LEFT JOIN satuan ON satuan.id_satuan = barang.satuan_id ORDER BY kd_barang DESC");
                     while($row = mysqli_fetch_assoc($sql)){
                 ?>
                 <tr>
@@ -42,8 +42,8 @@
                     <td><?php echo $row['lokasi'] ?></td>
                     <td><?php echo $row['status_barang'] ?></td>
                     <td><?php echo $row['total'] ?></td>
-                    <?php if($_SESSION['level'] == 'Admin'): ?>
-
+                    <td><?php echo $row['nama_satuan'] == '' ? '-' : $row['nama_satuan']; ?></td>
+                    <?php if($_SESSION['level'] == 'admin'): ?>
                     <td>
                         <a class="btn btn-sm btn-warning" href="admin.php?page=edit-barang&id=<?php echo $row['kd_barang'] ?>">Edit</a>
                         <a class="btn btn-sm btn-danger" href="admin.php?page=hapus-barang&id=<?php echo $row['kd_barang'] ?>">Hapus</a>

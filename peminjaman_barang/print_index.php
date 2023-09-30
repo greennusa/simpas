@@ -34,7 +34,7 @@ include '../date_formatter.php';
         <tbody>
             <?php
                     $no = 1;
-                    $sql = mysqli_query($conn, "SELECT * FROM peminjaman_barang LEFT JOIN barang ON peminjaman_barang.barang_kd = barang.kd_barang LEFT JOIN mahasiswa ON peminjaman_barang.mahasiswa_id = mahasiswa.id_mahasiswa LEFT JOIN biro ON peminjaman_barang.biro_id = biro.id_biro LEFT JOIN dosen ON dosen.id_dosen = peminjaman_barang.dosen_id ORDER BY peminjaman_barang.id_peminjaman_barang DESC");
+                    $sql = mysqli_query($conn, "SELECT * FROM peminjaman_barang LEFT JOIN barang ON peminjaman_barang.barang_kd = barang.kd_barang LEFT JOIN mahasiswa ON peminjaman_barang.mahasiswa_id = mahasiswa.id_mahasiswa LEFT JOIN biro ON peminjaman_barang.biro_id = biro.id_biro LEFT JOIN satuan ON satuan.id_satuan = barang.satuan_id LEFT JOIN dosen ON dosen.id_dosen = peminjaman_barang.dosen_id ORDER BY peminjaman_barang.id_peminjaman_barang DESC");
                     while($row = mysqli_fetch_assoc($sql)){
                 ?>
             <tr>
@@ -42,7 +42,7 @@ include '../date_formatter.php';
                 <td><?php echo $row['nim'] == '' ? '-' : $row['nim']; ?></td>
                 <td><?php echo $row['nama_mahasiswa'] == '' ? '-' : $row['nama_mahasiswa']; ?></td>
                 <td><?php echo $row['nama_barang'] == '' ? '-' : $row['nama_barang']; ?></td>
-                <td><?php echo $row['jumlah_barang'] ?></td>
+                <td><?php echo $row['jumlah_barang'] . ' ' . $row['nama_satuan'] ?></td>
                 <td><?php echo $row['tujuan'] ?></td>
                 <td><?php echo formatDateIndonesia2($row['tanggal_peminjaman']) ?></td>
                 <td><?php echo formatDateIndonesia2($row['tanggal_selesai']) ?></td>
