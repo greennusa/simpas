@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 28, 2023 at 08:53 AM
+-- Generation Time: Sep 30, 2023 at 09:17 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -35,16 +35,18 @@ CREATE TABLE `barang` (
   `lokasi` varchar(100) NOT NULL,
   `status_barang` varchar(50) NOT NULL,
   `total` int NOT NULL,
-  `merek_id` int NOT NULL
+  `merek_id` int NOT NULL,
+  `satuan_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `barang`
 --
 
-INSERT INTO `barang` (`kd_barang`, `nama_barang`, `kategori_id`, `spesifikasi`, `lokasi`, `status_barang`, `total`, `merek_id`) VALUES
-('BRG-0002', 'Komputer', 2, 'a', '90', 'aman', 28, 3),
-('BRG-0003', 'fsad', 2, 'sf', 'fas', 'sfd', 3, 3);
+INSERT INTO `barang` (`kd_barang`, `nama_barang`, `kategori_id`, `spesifikasi`, `lokasi`, `status_barang`, `total`, `merek_id`, `satuan_id`) VALUES
+('BRG-0002', 'Komputer', 2, 'a', '90', 'aman', 28, 3, 2),
+('BRG-0003', 'fsad', 2, 'sf', 'fas', 'sfd', 3, 3, 3),
+('BRG-0004', 'sdaf', 2, '23', 'sf', 's', 21, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -62,7 +64,8 @@ CREATE TABLE `biro` (
 --
 
 INSERT INTO `biro` (`id_biro`, `nama_biro`) VALUES
-(2, 'Biro A');
+(2, 'Biro A'),
+(4, 'sdfa');
 
 -- --------------------------------------------------------
 
@@ -275,6 +278,14 @@ CREATE TABLE `satuan` (
   `nama_satuan` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Dumping data for table `satuan`
+--
+
+INSERT INTO `satuan` (`id_satuan`, `nama_satuan`) VALUES
+(2, 'Pack'),
+(3, 'Lusin');
+
 -- --------------------------------------------------------
 
 --
@@ -306,7 +317,8 @@ INSERT INTO `user` (`id_user`, `nama`, `email`, `username`, `password`) VALUES
 ALTER TABLE `barang`
   ADD PRIMARY KEY (`kd_barang`),
   ADD KEY `kategori_id` (`kategori_id`),
-  ADD KEY `merek_id` (`merek_id`);
+  ADD KEY `merek_id` (`merek_id`),
+  ADD KEY `satuan_id` (`satuan_id`);
 
 --
 -- Indexes for table `biro`
@@ -404,7 +416,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `biro`
 --
 ALTER TABLE `biro`
-  MODIFY `id_biro` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_biro` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `dosen`
@@ -464,7 +476,7 @@ ALTER TABLE `ruangan`
 -- AUTO_INCREMENT for table `satuan`
 --
 ALTER TABLE `satuan`
-  MODIFY `id_satuan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_satuan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
