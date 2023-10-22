@@ -51,14 +51,14 @@
     <!-- Peminjaman Ruangan Link -->
     <li class="nav-item <?php echo $currentPage === 'peminjaman-ruangan' ? 'active' : '' ?>">
         <a class="nav-link" href="admin.php?page=peminjaman-ruangan">
-            <span>Peminjaman Ruangan</span>
+            <span>Rekap Peminjaman Ruangan</span>
         </a>
     </li>
 
     <!-- Peminjaman Barang Link -->
     <li class="nav-item <?php echo $currentPage === 'peminjaman-barang' ? 'active' : '' ?>">
         <a class="nav-link" href="admin.php?page=peminjaman-barang">
-            <span>Peminjaman Barang</span>
+            <span>Rekap Peminjaman Barang</span>
         </a>
     </li>
 

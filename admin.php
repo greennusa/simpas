@@ -20,7 +20,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['level'])) {
     <meta name="description" content="Simpas">
     <meta name="author" content="GreenNusa Computindo">
     <link href='assets/img/unida_logo.png' rel='shortcut icon'>
-    
+
     <title>Simpas</title>
 
     <!-- Custom fonts for this template-->
@@ -35,6 +35,69 @@ if (empty($_SESSION['username']) && empty($_SESSION['level'])) {
     <link href="assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- Sweet Alert 2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        .progress-container {
+            width: 100%;
+            margin: 2em auto;
+        }
+
+        .progress-steps {
+            counter-reset: step;
+        }
+
+        .progress-steps li {
+            list-style-type: none;
+            width: 20%;
+            float: left;
+            font-size: 0.7em;
+            position: relative;
+            text-align: center;
+            text-transform: uppercase;
+            color: #1A6FAC;
+        }
+
+        .progress-steps li:before {
+            width: 2.5em;
+            height: 2.5em;
+            content: counter(step);
+            counter-increment: step;
+            line-height: 2.5em;
+            border: 2px solid #1A6FAC;
+            display: block;
+            text-align: center;
+            margin: 0 auto 0.7em auto;
+            border-radius: 50%;
+            background-color: white;
+        }
+
+        .progress-steps li:after {
+            width: 100%;
+            height: 2px;
+            content: "";
+            position: absolute;
+            background-color: #1A6FAC;
+            top: 1.3em;
+            left: -50%;
+            z-index: -1;
+        }
+
+        .progress-steps li:first-child:after {
+            content: none;
+        }
+
+        .progress-steps li.active {
+            color: #1A6FAC;
+        }
+
+        .progress-steps li.active:before {
+            border-color: #1A6FAC;
+        }
+
+        .progress-steps li.active+li:after {
+            background-color: #1A6FAC;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -61,11 +124,12 @@ if (empty($_SESSION['username']) && empty($_SESSION['level'])) {
                     <!-- alert primary -->
                     <div class="row">
                         <div class="col-lg-12">
-                        <?php if (isset($_SESSION['level'])) { ?>
+                            <?php if (isset($_SESSION['level'])) { ?>
                             <div class="alert alert-info text-capitalize text-primary" role="alert">
-                                Selamat Datang <?php echo $_SESSION['level'] ?> di SIMPAS (Sistem Informasi Sarana Prasarana)
+                                Selamat Datang <?php echo $_SESSION['level'] ?> di SIMPAS (Sistem Informasi Sarana
+                                Prasarana)
                             </div>
-                        <?php } ?>
+                            <?php } ?>
                         </div>
                     </div>
                     <?php
@@ -302,84 +366,87 @@ if (empty($_SESSION['username']) && empty($_SESSION['level'])) {
     <!-- Page level custom scripts -->
     <script src="assets/js/demo/datatables-demo.js"></script>
     <script type="text/javascript">
-    // Mengecek apakah ada parameter tertentu di URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const tambah = urlParams.get('tambah');
-    const edit = urlParams.get('edit');
-    const del = urlParams.get('delete');
-    const login = urlParams.get('login');
+        // Mengecek apakah ada parameter tertentu di URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const tambah = urlParams.get('tambah');
+        const edit = urlParams.get('edit');
+        const del = urlParams.get('delete');
+        const login = urlParams.get('login');
 
-    // Fungsi untuk menampilkan Toast
-    const showToast = (icon, message) => {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        });
-
-        Toast.fire({
-            icon: icon,
-            title: message
-        }).then((result) => {
-            // Mengambil URL dan memisahkan parameter-parameter GET
-            const url = new URL(window.location.href);
-            const params = new URLSearchParams(url.search);
-
-            params.delete('tambah');
-            params.delete('edit');
-            params.delete('delete');
-            params.delete('login');
-            
-            // Membangun kembali URL dengan parameter yang tersisa
-            const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?${params.toString()}`;
-            
-            // Memperbarui URL tanpa me-reload halaman
-            window.history.pushState({}, document.title, newUrl);
-        });
-    }
-
-    // Menampilkan toast berdasarkan parameter di URL
-    if (tambah === 'true') {
-        showToast('success', 'Data berhasil ditambahkan');
-    } else if (edit === 'true') {
-        showToast('success', 'Data berhasil diubah');
-    } else if (del === 'true') {
-        showToast('success', 'Data berhasil dihapus');
-    } else if (login === 'true') {
-        showToast('success', 'Login Berhasil');
-    }
-</script>
-<script>
-    // Pilih semua tombol dengan class "btn-danger", yang berarti itu adalah tombol hapus
-    const deleteButtons = document.querySelectorAll('.btn-danger');
-
-    deleteButtons.forEach((button) => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault(); // Menghentikan aksi default tombol
-
-            const url = this.getAttribute('href'); // Mengambil URL untuk hapus dari atribut href pada tombol
-
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Data yang dihapus tidak dapat dikembalikan!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = url; // Jika user mengklik 'Ya, hapus!', arahkan ke URL hapus
+        // Fungsi untuk menampilkan Toast
+        const showToast = (icon, message) => {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
-            })
+            });
+
+            Toast.fire({
+                icon: icon,
+                title: message
+            }).then((result) => {
+                // Mengambil URL dan memisahkan parameter-parameter GET
+                const url = new URL(window.location.href);
+                const params = new URLSearchParams(url.search);
+
+                params.delete('tambah');
+                params.delete('edit');
+                params.delete('delete');
+                params.delete('login');
+
+                // Membangun kembali URL dengan parameter yang tersisa
+                const newUrl =
+                    `${window.location.protocol}//${window.location.host}${window.location.pathname}?${params.toString()}`;
+
+                // Memperbarui URL tanpa me-reload halaman
+                window.history.pushState({}, document.title, newUrl);
+            });
+        }
+
+        // Menampilkan toast berdasarkan parameter di URL
+        if (tambah === 'true') {
+            showToast('success', 'Data berhasil ditambahkan');
+        } else if (edit === 'true') {
+            showToast('success', 'Data berhasil diubah');
+        } else if (del === 'true') {
+            showToast('success', 'Data berhasil dihapus');
+        } else if (login === 'true') {
+            showToast('success', 'Login Berhasil');
+        }
+    </script>
+    <script>
+        // Pilih semua tombol dengan class "btn-danger", yang berarti itu adalah tombol hapus
+        const deleteButtons = document.querySelectorAll('.btn-danger');
+
+        deleteButtons.forEach((button) => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault(); // Menghentikan aksi default tombol
+
+                const url = this.getAttribute(
+                'href'); // Mengambil URL untuk hapus dari atribut href pada tombol
+
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href =
+                        url; // Jika user mengklik 'Ya, hapus!', arahkan ke URL hapus
+                    }
+                })
+            });
         });
-    });
-</script>
+    </script>
 
 </body>
 

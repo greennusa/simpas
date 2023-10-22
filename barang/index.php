@@ -21,9 +21,7 @@
                         <th>Status</th>
                         <th>Total</th>
                         <th>Satuan</th>
-                        <?php if($_SESSION['level'] == 'admin'): ?>
                         <th>Aksi</th>
-                        <?php endif ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,7 +46,11 @@
                         <a class="btn btn-sm btn-warning" href="admin.php?page=edit-barang&id=<?php echo $row['kd_barang'] ?>">Edit</a>
                         <a class="btn btn-sm btn-danger" href="admin.php?page=hapus-barang&id=<?php echo $row['kd_barang'] ?>">Hapus</a>
                     </td>
-                    <?php endif; ?>
+                    <?php else: ?>
+                        <td>
+                        <a class="btn btn-sm btn-primary" href="admin.php?page=tambah-peminjaman-barang">Pinjam</a>
+                        </td>
+                    <?php endif ?>
                 </tr>
                 <?php } ?>
                 </tbody>

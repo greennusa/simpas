@@ -26,10 +26,16 @@
                     <td><?php echo $no++ ?></td>
                     <td><?php echo $row['nama_ruangan'] ?></td>
                     <td><?php echo $row['nama_gedung'] ?></td>
+                    <?php if($_SESSION['level'] == 'admin'): ?>
                     <td>
                         <a href="admin.php?page=edit-ruangan&id=<?php echo $row['id_ruangan'] ?>" class="btn btn-warning">Edit</a>
                         <a href="admin.php?page=hapus-ruangan&id=<?php echo $row['id_ruangan'] ?>" class="btn btn-danger">Hapus</a>
                     </td>
+                    <?php else: ?>
+                        <td>
+                        <a class="btn btn-sm btn-primary" href="admin.php?page=tambah-peminjaman-ruangan">Pinjam</a>
+                        </td>
+                    <?php endif ?>
                 </tr>
                 <?php } ?>
                 </tbody>

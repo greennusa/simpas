@@ -1,7 +1,7 @@
 <!-- Page Heading -->
 <?php require 'date_formatter.php'; ?>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Data Peminjaman Ruangan</h1>
+    <h1 class="h3 mb-0 text-gray-800">Rekapitulasi Peminjaman Ruangan</h1>
     <?php if($_SESSION['level'] == 'user') : ?>
         <a href="admin.php?page=tambah-peminjaman-ruangan" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Tambah Data</a>
     <?php else: ?>
