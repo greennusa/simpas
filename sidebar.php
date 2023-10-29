@@ -50,14 +50,14 @@
 
     <!-- Peminjaman Ruangan Link -->
     <li class="nav-item <?php echo $currentPage === 'peminjaman-ruangan' ? 'active' : '' ?>">
-        <a class="nav-link" href="admin.php?page=peminjaman-ruangan">
+        <a class="nav-link" href="admin.php?page=<?php echo $_SESSION['level'] == 'user' ? 'ruangan' : 'peminjaman-ruangan' ?>">
             <span>Rekap Peminjaman Ruangan</span>
         </a>
     </li>
 
     <!-- Peminjaman Barang Link -->
     <li class="nav-item <?php echo $currentPage === 'peminjaman-barang' ? 'active' : '' ?>">
-        <a class="nav-link" href="admin.php?page=peminjaman-barang">
+        <a class="nav-link" href="admin.php?page=<?php echo $_SESSION['level'] == 'user' ? 'barang' : 'peminjaman-barang' ?>">
             <span>Rekap Peminjaman Barang</span>
         </a>
     </li>

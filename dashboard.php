@@ -199,7 +199,7 @@
     </div>
     <?php }else{ ?>
     <div class="col-xl-4 col-md-6 mb-4">
-        <a href="admin.php?page=peminjaman-barang">
+        <a href="admin.php?page=peminjaman-barang&from=dashboard">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -217,7 +217,7 @@
     </div>
 
     <div class="col-xl-4 col-md-6 mb-4">
-        <a href="admin.php?page=peminjaman-ruangan">
+        <a href="admin.php?page=peminjaman-ruangan&from=dashboard">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">

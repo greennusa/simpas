@@ -1,9 +1,13 @@
 <!-- Page Heading -->
 <?php require 'date_formatter.php'; ?>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <?php if(isset($_GET['from']) && $_GET['from'] == 'dashboard') : ?>
     <h1 class="h3 mb-0 text-gray-800">Rekapitulasi Peminjaman Ruangan</h1>
+    <?php endif; ?>
     <?php if($_SESSION['level'] == 'user') : ?>
+        <?php if(isset($_GET['from']) && $_GET['from'] == 'dashboard') : ?>
         <a href="admin.php?page=tambah-peminjaman-ruangan" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Tambah Data</a>
+        <?php endif; ?>
     <?php else: ?>
         <div>
             <a href="peminjaman_ruangan/print_index.php" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm"> Export PDF</a>

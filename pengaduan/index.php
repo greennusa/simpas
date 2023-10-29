@@ -26,7 +26,6 @@
                         <th>Isi</th>
                         <th>Tanggal Kejadian</th>
                         <th>Status</th>
-                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
